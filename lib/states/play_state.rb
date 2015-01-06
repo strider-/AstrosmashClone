@@ -1,7 +1,12 @@
 class PlayState < GameState
+    attr_reader :lives, :score
+
     def initialize(window)
         super window
-        @font = Gosu::Font.new(window, 'Courier New', 40)
+        @hud = Hud.new(window, self)
+        @bg_color = Gosu::Color.rgba(0x55555555)
+        @lives = 3
+        @score = 0
     end
 
     def update
@@ -9,6 +14,7 @@ class PlayState < GameState
     end
 
     def draw
-        @font.draw("//TODO: Write Game", 30, 30, 0, 1.0, 1.0)
+        @window.fill_rect(0, 0, 640, 420, @bg_color)
+        @hud.draw
     end
 end

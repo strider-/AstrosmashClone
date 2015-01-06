@@ -22,6 +22,6 @@ class Star
     end
 
     def out_of_bounds?
-        @y >= Astrosmash::WIN_HEIGHT || @x <= 0
+        @y >= @window.height || @x <= 0
     end
 end

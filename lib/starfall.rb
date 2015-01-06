@@ -14,7 +14,7 @@ class Starfall
             @stars.reject! do |star|
                 star.out_of_bounds?
             end
-            ensure_min_stars
+            ensure_star_count
         end
     end
 
@@ -31,7 +31,7 @@ class Starfall
 
     private
 
-    def ensure_min_stars
+    def ensure_star_count
         [(MAX_STARS - @stars.count), 5].min.times do |i|
             @stars.push new_star
         end

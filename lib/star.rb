@@ -13,10 +13,8 @@ class Star
     end
 
     def update
-        unless out_of_bounds?
-            @x -= 2
-            @y += 4
-        end
+        @x -= 2
+        @y += 4
     end
 
     def draw

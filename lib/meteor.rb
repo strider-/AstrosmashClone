@@ -23,16 +23,19 @@ class Meteor
         @x, @y = start_position
         @step_y  = @rng.rand(1.0..5.0)
         @step_x  = @rng.rand(-1.5..1.5)
+        @step_a  = @rng.rand(1.0..5.0)
         @color = random_color
+        @angle = 0
     end
 
     def update
         @y += @step_y
         @x -= @step_x
+        @angle += @step_a
     end
 
     def draw
-        @image.draw(@x, @y, -1, 1, 1, @color)
+        @image.draw_rot(@x, @y, -1, @angle, 0.5, 0.5, 1, 1, @color)
     end
 
     def out_of_bounds?

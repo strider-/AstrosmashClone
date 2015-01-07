@@ -1,7 +1,8 @@
 #!/home/mtighe/.rubies/ruby-2.1.2/bin/ruby -w
 require 'gosu'
 
-BASE_PATH = File.dirname(File.absolute_path(__FILE__))
+BASE_PATH  = File.dirname(File.absolute_path(__FILE__))
+MEDIA_PATH = File.join(BASE_PATH, 'media')
 
 preload = %w(lib/states/game_state.rb)
 preload.each do |file|

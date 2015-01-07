@@ -12,6 +12,7 @@ class PlayState < GameState
 
     def update
         game_objects.each(&:update)
+        collision_check
     end
 
     def draw
@@ -20,6 +21,10 @@ class PlayState < GameState
     end
 
     private
+
+    def collision_check
+        
+    end
 
     def game_objects
         [@hud, @player]

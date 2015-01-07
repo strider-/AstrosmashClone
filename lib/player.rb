@@ -11,14 +11,8 @@ class Player
     end
 
     def update
-        move_left  if @window.button_down?(Gosu::KbLeft)
-        move_right if @window.button_down?(Gosu::KbRight)
-        fire       if @window.button_down?(Gosu::KbSpace)
-
-        @bullets.each(&:update)
-        @bullets.reject! do |bullet|
-            bullet.out_of_bounds?
-        end
+        handle_input
+        update_bullets
     end 
 
     def draw
@@ -35,13 +29,24 @@ class Player
     end
 
     def fire
-        if can_fire?
-            @bullets.push(Bullet.new(@window, @x))
-            @last_shot = Gosu.milliseconds
-        end
+        @bullets.push(Bullet.new(@window, @x))
+        @last_shot = Gosu.milliseconds
     end
 
     private
+
+    def handle_input
+        move_left  if @window.button_down?(Gosu::KbLeft)
+        move_right if @window.button_down?(Gosu::KbRight)
+        fire       if @window.button_down?(Gosu::KbSpace) && can_fire?
+    end
+
+    def update_bullets        
+        @bullets.each(&:update)
+        @bullets.reject! do |bullet|
+            bullet.out_of_bounds?
+        end
+    end
 
     def can_fire?
         time_since_last_shot >= SHOT_DELAY

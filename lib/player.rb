@@ -1,5 +1,6 @@
 class Player
     SHOT_DELAY = 250
+    MOVE_STEP  = 5
 
     def initialize(window)
         @window = window
@@ -21,11 +22,11 @@ class Player
     end
 
     def move_left
-        @x = [@x - step, 0].max
+        @x = [@x - MOVE_STEP, 0].max
     end
 
     def move_right
-        @x = [@x + step, @right_most].min
+        @x = [@x + MOVE_STEP, @right_most].min
     end
 
     def fire
@@ -54,10 +55,6 @@ class Player
 
     def time_since_last_shot
         Gosu.milliseconds - @last_shot
-    end
-
-    def step
-        5
     end
 
     def start_position

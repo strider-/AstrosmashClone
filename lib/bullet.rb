@@ -1,4 +1,6 @@
 class Bullet
+    MOVE_STEP = 5
+
     def initialize(window, x)
         @window = window
         @image = window.load_image('bullet.png')
@@ -6,7 +8,7 @@ class Bullet
     end
 
     def update
-        @y -= step
+        @y -= MOVE_STEP
     end
 
     def draw
@@ -15,11 +17,5 @@ class Bullet
 
     def out_of_bounds?
         @y < -@image.height
-    end
-
-    private
-
-    def step
-        5
     end
 end

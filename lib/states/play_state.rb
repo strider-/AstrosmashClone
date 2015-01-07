@@ -4,7 +4,8 @@ class PlayState < GameState
     def initialize(window)
         super window
         @hud = Hud.new(window, self)
-        @player = Player.new(window)
+        @meteor_shower = MeteorShower.new(window, self)
+        @player = Player.new(window)        
         @bg_color = Gosu::Color.rgba(0x55555555)
         @lives = 3
         @score = 0
@@ -23,10 +24,10 @@ class PlayState < GameState
     private
 
     def collision_check
-        
+
     end
 
     def game_objects
-        [@hud, @player]
+        [@hud, @player, @meteor_shower]
     end
 end

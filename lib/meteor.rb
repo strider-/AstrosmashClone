@@ -1,6 +1,6 @@
 class Meteor
     attr_reader :x, :y
-    
+
     TYPES  = [
         {size: 'large', value: 10}, 
         {size: 'small', value: 20}
@@ -11,7 +11,8 @@ class Meteor
         Gosu::Color.argb(0xFFA4C85A),
         Gosu::Color.argb(0xFFD7BE60),
         Gosu::Color.argb(0xFF3F8D77),
-        Gosu::Color.argb(0xFFD78B60)
+        Gosu::Color.argb(0xFFD78B60),
+        Gosu::Color.argb(0xFF426E89)
     ]
 
     def initialize(window)

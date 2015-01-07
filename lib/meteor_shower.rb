@@ -1,7 +1,6 @@
 class MeteorShower
-    def initialize(window, play_state)
+    def initialize(window)
         @window = window
-        @state = play_state
         @meteors = []
         @interval = 1000
         @last_addition = 0

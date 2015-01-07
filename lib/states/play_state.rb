@@ -4,7 +4,7 @@ class PlayState < GameState
     def initialize(window)
         super window
         @hud = Hud.new(window, self)
-        @meteor_shower = MeteorShower.new(window, self)
+        @meteor_shower = MeteorShower.new(window)
         @player = Player.new(window)        
         @bg_color = Gosu::Color.rgba(0x55555555)
         @lives = 3

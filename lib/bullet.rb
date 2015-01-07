@@ -1,4 +1,6 @@
 class Bullet
+    attr_reader :x, :y
+    
     MOVE_STEP = 5
 
     def initialize(window, x)

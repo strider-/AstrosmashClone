@@ -1,4 +1,6 @@
 class Meteor
+    attr_reader :x, :y
+    
     TYPES  = [
         {size: 'large', value: 10}, 
         {size: 'small', value: 20}

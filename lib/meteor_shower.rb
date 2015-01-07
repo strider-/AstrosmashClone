@@ -29,6 +29,10 @@ class MeteorShower
     end 
 
     def time_for_more?
-        (Gosu.milliseconds - @last_addition) > @interval
+        time_since_last_meteor > @interval
+    end
+
+    def time_since_last_meteor
+       Gosu.milliseconds - @last_addition
     end
 end

@@ -13,4 +13,4 @@ Dir["#{BASE_PATH}/lib/**/*.rb"].each do |file|
     require file
 end
 
-Astrosmash.new.show
+Astrosmash.play

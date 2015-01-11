@@ -1,6 +1,10 @@
 class Astrosmash < Gosu::Window
     WIN_WIDTH = 640
-    WIN_HEIGHT = 480  
+    WIN_HEIGHT = 480
+
+    def self.play
+        new.show
+    end
 
     def initialize
         super WIN_WIDTH, WIN_HEIGHT, false
@@ -25,7 +29,7 @@ class Astrosmash < Gosu::Window
     end
 
     def reset
-        self.state = PlayState.new(self)
+        self.state = SplashState.new(self)
     end
 
     def fill_rect(x, y, x2, y2, color)

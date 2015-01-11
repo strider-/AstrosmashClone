@@ -3,13 +3,8 @@ class GameState
         @window = window
     end
 
-    def update
-
-    end
-
-    def draw
-
-    end
+    def update; end
+    def draw;   end
 
     protected
 

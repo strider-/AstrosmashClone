@@ -1,5 +1,5 @@
 class Meteor
-    attr_reader :hit_box
+    attr_reader :step_y, :color, :hit_box
 
     TYPES  = [
         {size: 'large', value: 10}, 
@@ -15,24 +15,28 @@ class Meteor
         Gosu::Color.argb(0xFF426E89)
     ]
 
-    def initialize(window)
-        @window = window
-        @rng = Random.new
-        @type = random_type
-        @image = window.load_image("asteroid_#{size}.png")
-        @x, @y = start_position
+    def self.create_small(window, large_meteor, step_x)
+        Meteor.new(window, large_meteor, step_x)
+    end
+
+    def initialize(window, parent_meteor = nil, step_x = nil)
+        @window  = window
+        @rng     = Random.new
+        @type    = parent_meteor.nil? ? random_type : TYPES[1]
+        @image   = window.load_image("asteroid_#{size}.png")
+        @x, @y   = parent_meteor.nil? ? start_position : parent_meteor.position
         @hit_box = Rect.new(@x, @y, @image.width, @image.height)
-        @step_y  = @rng.rand(1.0..5.0)
-        @step_x  = @rng.rand(-1.5..1.5)
-        @step_a  = @rng.rand(0..5)
-        @color = random_color
-        @angle = 0
+        @step_y  = parent_meteor.nil? ? @rng.rand(1.0..5.0) : parent_meteor.step_y
+        @step_x  = step_x || @rng.rand(-1.5..1.5)
+        # @step_a  = @rng.rand(0..5)
+        @color   = parent_meteor.nil? ? random_color : parent_meteor.color
+        # @angle   = 0
     end
 
     def update
         @y += @step_y
         @x -= @step_x
-        @angle += @step_a
+        # @angle += @step_a
         @hit_box.offset(-@step_x, @step_y)
     end
 
@@ -55,6 +59,21 @@ class Meteor
 
     def value
         @type[:value]
+    end
+
+    def large?
+        size == 'large'
+    end
+
+    def position
+        [@x, @y]
+    end
+
+    def split
+        [
+            Meteor.create_small(@window, self, -1.5),
+            Meteor.create_small(@window, self, 1.5)
+        ]
     end
 
     private

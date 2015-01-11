@@ -6,6 +6,7 @@ class MeteorShower
         @meteors = []
         @interval = 1000
         @last_addition = 0
+        @split_rng = Random.new
     end
 
     def update
@@ -23,6 +24,7 @@ class MeteorShower
 
     def clear_meteor(meteor)
         @meteors.delete(meteor)
+        @meteors.push(*meteor.split) if should_split?(meteor)
     end
     
     def crashed_meteor_value
@@ -44,5 +46,9 @@ class MeteorShower
 
     def time_since_last_meteor
        Gosu.milliseconds - @last_addition
+    end
+
+    def should_split?(meteor)
+        meteor.large? && (@split_rng.rand(0..100) % 2 == 0)
     end
 end

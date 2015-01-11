@@ -43,6 +43,11 @@ class Player
         @bullets.delete(bullet)
     end
 
+    def reset
+        @x, @y = start_position
+        @bullets.clear
+    end
+
     private
 
     def handle_input

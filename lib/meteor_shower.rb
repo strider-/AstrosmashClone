@@ -31,6 +31,10 @@ class MeteorShower
         (@crashed_meteor_values.inject(:+) || 0) / 2
     end
 
+    def clear
+        @meteors.clear
+    end
+
     private
 
     def make_it_rain

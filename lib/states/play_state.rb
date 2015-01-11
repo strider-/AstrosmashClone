@@ -1,5 +1,5 @@
 class PlayState < GameState
-    attr_reader :lives, :score
+    attr_reader :lives, :score, :hud
 
     FLOOR = 420 # smoke games every day
 
@@ -27,11 +27,21 @@ class PlayState < GameState
         game_objects.each(&:draw)
     end
 
+    def reset
+        @meteor_shower.clear
+        @player.reset
+    end
+
     private
 
     def collision_check
         meteor_hits.each do |hit|
             handle_shot_down_meteor hit[:meteor], hit[:bullet]
+        end
+
+        if player_was_hit?
+            @lives -= 1
+            @window.state = DeathState.new(@window, self)
         end
 
         @score = [@score - @meteor_shower.crashed_meteor_value, 0].max

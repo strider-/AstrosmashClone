@@ -1,8 +1,6 @@
 class Explosion
     def initialize(window, x, y)
-        @window = window
-        @x = x
-        @y = y
+        @x , @y = x, y
         @tiles = window.load_tiles('explode.png', 28, 28)
         @img = @tiles[0]
         @done = false

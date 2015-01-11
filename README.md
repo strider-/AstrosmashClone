@@ -10,6 +10,7 @@ Controls
 
 To-Do
 --------
+- Proper graphics for title/hud/score/ect instead of drawing fonts
 - Add sounds/audio
 - Implement hyperspace jumping
 - Implement more enemy types (UFOs, Spinners, Homing Missles)

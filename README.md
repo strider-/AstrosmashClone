@@ -7,3 +7,11 @@ Controls
 - Space = Start Game / Fire
 - R = Reset Game
 - Esc = Quit
+
+To-Do
+--------
+- Add sounds/audio
+- Implement hyperspace jumping
+- Implement more enemy types (UFOs, Spinners, Homing Missles)
+- Implement "levels" at scoring breakpoints
+- Implement additional lives at scoring breakpointss

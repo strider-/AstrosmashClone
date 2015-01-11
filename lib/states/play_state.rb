@@ -37,7 +37,7 @@ class PlayState < GameState
 
     def player_was_hit?
         @meteor_shower.meteors.any? do |meteor|
-            @player.hit_box.intersects_with? meteor.hit_box
+            @player.hit_box.collides_with? meteor.hit_box
         end
     end
 
@@ -45,7 +45,7 @@ class PlayState < GameState
         hits = []
         @meteor_shower.meteors.each do |meteor|
             @player.bullets.each do |bullet|
-                hits.push({ meteor: meteor, bullet: bullet }) if meteor.hit_box.intersects_with?(bullet.hurt_box)
+                hits.push({ meteor: meteor, bullet: bullet }) if meteor.hit_box.collides_with?(bullet.hurt_box)
             end
         end
         hits        

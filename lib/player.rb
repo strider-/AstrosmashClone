@@ -3,6 +3,7 @@ class Player
 
     SHOT_DELAY = 250
     MOVE_STEP  = 5
+    WARP_DELAY = 5000
 
     def initialize(window)
         @window = window
@@ -12,6 +13,7 @@ class Player
         @right_most = @window.width - @image.width
         @bullets = []
         @last_shot = 0
+        @last_warp = -WARP_DELAY
     end
 
     def update
@@ -47,6 +49,18 @@ class Player
         @x, @y = start_position
         @hit_box.move_to(@x, @y)
         @bullets.clear
+        @last_shot = 0
+        @last_warp = -WARP_DELAY
+    end
+
+    def warp
+        @x = Gosu.random(0, @right_most).truncate
+        @hit_box.move_to(@x, @hit_box.y)
+        @last_warp = Gosu.milliseconds
+    end
+
+    def button_down(id)
+        warp if id == Gosu::KbLeftShift && can_warp?
     end
 
     private
@@ -72,8 +86,16 @@ class Player
         time_since_last_shot >= SHOT_DELAY
     end
 
+    def can_warp?
+        time_since_last_warp >= WARP_DELAY
+    end
+
     def time_since_last_shot
         Gosu.milliseconds - @last_shot
+    end
+
+    def time_since_last_warp
+        Gosu.milliseconds - @last_warp
     end
 
     def start_position

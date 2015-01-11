@@ -27,6 +27,10 @@ class PlayState < GameState
         game_objects.each(&:draw)
     end
 
+    def button_down(id)
+        @player.button_down(id)
+    end
+
     def reset
         @meteor_shower.clear
         @explosions.clear

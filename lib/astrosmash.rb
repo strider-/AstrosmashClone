@@ -24,6 +24,14 @@ class Astrosmash < Gosu::Window
         @state.draw
     end
 
+    def button_down(id)
+        @state.button_down id
+    end
+
+    def button_up(id)
+        @state.button_up id
+    end    
+
     def state=(state)
         @state = state
     end

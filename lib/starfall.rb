@@ -5,7 +5,6 @@ class Starfall
         @window = window
         @stars = []
         @active = true
-        @rng = Random.new
     end
 
     def update
@@ -33,14 +32,7 @@ class Starfall
 
     def ensure_star_count
         [(MAX_STARS - @stars.count), 5].min.times do |i|
-            @stars.push new_star
+            @stars.push Star.new(@window)
         end
-    end
-
-    def new_star
-        x = @rng.rand(0..800)
-        y = @rng.rand(0..300) * -1
-        c = @rng.rand(0..3)
-        Star.new(@window, x, y, c)
     end
 end

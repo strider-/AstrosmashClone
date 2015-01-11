@@ -6,7 +6,6 @@ class MeteorShower
         @meteors = []
         @interval = 1000
         @last_addition = 0
-        @split_rng = Random.new
     end
 
     def update
@@ -53,6 +52,6 @@ class MeteorShower
     end
 
     def should_split?(meteor)
-        meteor.large? && (@split_rng.rand(0..100) % 2 == 0)
+        meteor.large? && (Gosu.random(0, 100).truncate % 2 == 0)
     end
 end

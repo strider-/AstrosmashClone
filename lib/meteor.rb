@@ -21,14 +21,13 @@ class Meteor
 
     def initialize(window, parent_meteor = nil, step_x = nil)
         @window  = window
-        @rng     = Random.new
         @type    = parent_meteor.nil? ? random_type : TYPES[1]
         @image   = window.load_image("asteroid_#{size}.png")
         @x, @y   = parent_meteor.nil? ? start_position : parent_meteor.position
         @hit_box = Rect.new(@x, @y, @image.width, @image.height)
-        @step_y  = parent_meteor.nil? ? @rng.rand(1.0..5.0) : parent_meteor.step_y
-        @step_x  = step_x || @rng.rand(-1.5..1.5)
-        # @step_a  = @rng.rand(0..5)
+        @step_y  = parent_meteor.nil? ? Gosu.random(1.0, 5.0) : parent_meteor.step_y
+        @step_x  = step_x || Gosu.random(-1.5, 1.5)
+        # @step_a  = Gosu.random(0, 5)
         @color   = parent_meteor.nil? ? random_color : parent_meteor.color
         # @angle   = 0
     end
@@ -79,14 +78,14 @@ class Meteor
     private
 
     def start_position
-        [@rng.rand(0..(@window.width - @image.width)), -@image.height]
+        [Gosu.random(0, (@window.width - @image.width)), -@image.height]
     end
 
     def random_type
-        TYPES[@rng.rand(0..(TYPES.count - 1))]
+        TYPES[Gosu.random(0, TYPES.count).truncate]
     end
 
     def random_color
-        COLORS[@rng.rand(0..(COLORS.count - 1))]
+        COLORS[Gosu.random(0, COLORS.count).truncate]
     end
 end

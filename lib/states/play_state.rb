@@ -29,6 +29,7 @@ class PlayState < GameState
 
     def reset
         @meteor_shower.clear
+        @explosions.clear
         @player.reset
     end
 

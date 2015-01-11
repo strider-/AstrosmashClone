@@ -6,10 +6,10 @@ class Star
         Gosu::Color::YELLOW
     ]
 
-    def initialize(window, x, y, color_index = 0)
+    def initialize(window)
         @window = window
-        @x, @y = x, y
-        @color = COLORS[color_index]
+        @x, @y = random_position
+        @color = COLORS[random_index]
     end
 
     def update
@@ -23,5 +23,15 @@ class Star
 
     def out_of_bounds?
         @y >= @window.height || @x <= 0
+    end
+
+    private
+
+    def random_position
+        [Gosu.random(0, 800), Gosu.random(0, 300) * -1]
+    end
+
+    def random_index
+        Gosu.random(0, COLORS.count).truncate
     end
 end

@@ -45,6 +45,7 @@ class Player
 
     def reset
         @x, @y = start_position
+        @hit_box.move_to(@x, @y)
         @bullets.clear
     end
 

@@ -1,4 +1,4 @@
-#!/home/mtighe/.rubies/ruby-2.1.2/bin/ruby -w
+#!/usr/bin/env ruby
 require 'gosu'
 
 BASE_PATH  = File.dirname(File.absolute_path(__FILE__))

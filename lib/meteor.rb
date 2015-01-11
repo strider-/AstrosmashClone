@@ -1,5 +1,5 @@
 class Meteor
-    attr_reader :x, :y
+    attr_reader :hit_box
 
     TYPES  = [
         {size: 'large', value: 10}, 
@@ -21,9 +21,10 @@ class Meteor
         @type = random_type
         @image = window.load_image("asteroid_#{size}.png")
         @x, @y = start_position
+        @hit_box = Rect.new(@x, @y, @image.width, @image.height)
         @step_y  = @rng.rand(1.0..5.0)
         @step_x  = @rng.rand(-1.5..1.5)
-        @step_a  = @rng.rand(1.0..5.0)
+        @step_a  = @rng.rand(0..5)
         @color = random_color
         @angle = 0
     end
@@ -32,15 +33,21 @@ class Meteor
         @y += @step_y
         @x -= @step_x
         @angle += @step_a
+        @hit_box.offset(-@step_x, @step_y)
     end
 
     def draw
-        @image.draw_rot(@x, @y, -1, @angle, 0.5, 0.5, 1, 1, @color)
+        # @image.draw_rot(@x, @y, -1, @angle, 0.5, 0.5, 1, 1, @color)
+        @image.draw(@x, @y, -1, 1, 1, @color)
     end
 
     def out_of_bounds?
-        @y >= 420 || @x <= -@image.width || @x >= @window.width
+        @x <= -@image.width || @x >= @window.width
     end
+
+    def crashed?
+        @y >= PlayState::FLOOR
+    end    
 
     def size
         @type[:size]

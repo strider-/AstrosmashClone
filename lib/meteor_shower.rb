@@ -1,4 +1,6 @@
 class MeteorShower
+    attr_reader :meteors
+
     def initialize(window)
         @window = window
         @meteors = []
@@ -8,14 +10,23 @@ class MeteorShower
 
     def update
         @meteors.each(&:update)
+        @crashed_meteor_values = @meteors.select { |m| m.crashed? }.map(&:value)
         @meteors.reject! do |meteor|
-            meteor.out_of_bounds?
+            meteor.crashed? || meteor.out_of_bounds?
         end
         make_it_rain
     end
 
     def draw
         @meteors.each(&:draw)
+    end
+
+    def clear_meteor(meteor)
+        @meteors.delete(meteor)
+    end
+    
+    def crashed_meteor_value
+        (@crashed_meteor_values.inject(:+) || 0) / 2
     end
 
     private

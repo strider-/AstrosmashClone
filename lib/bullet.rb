@@ -1,16 +1,18 @@
 class Bullet
-    attr_reader :x, :y
-    
+    attr_reader :hurt_box
+
     MOVE_STEP = 5
 
-    def initialize(window, x)
+    def initialize(window, start_position)
         @window = window
         @image = window.load_image('bullet.png')
-        @x, @y = x + 17, 374
+        @x, @y = start_position
+        @hurt_box = Rect.new(@x, @y, @image.width, @image.height)
     end
 
     def update
         @y -= MOVE_STEP
+        @hurt_box.offset(0, -MOVE_STEP)
     end
 
     def draw

@@ -25,7 +25,7 @@ class Astrosmash < Gosu::Window
     end
 
     def reset
-        self.state = SplashState.new(self)
+        self.state = PlayState.new(self)
     end
 
     def fill_rect(x, y, x2, y2, color)

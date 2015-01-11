@@ -1,4 +1,6 @@
 class Player
+    attr_reader :bullets, :hit_box
+
     SHOT_DELAY = 250
     MOVE_STEP  = 5
 
@@ -6,6 +8,7 @@ class Player
         @window = window
         @image = window.load_image('player.png')
         @x, @y = start_position
+        @hit_box = Rect.new(@x, @y, @image.width, @image.height)
         @right_most = @window.width - @image.width
         @bullets = []
         @last_shot = 0
@@ -23,15 +26,21 @@ class Player
 
     def move_left
         @x = [@x - MOVE_STEP, 0].max
+        @hit_box.move_to(@x, @hit_box.y)
     end
 
     def move_right
         @x = [@x + MOVE_STEP, @right_most].min
+        @hit_box.move_to(@x, @hit_box.y)
     end
 
     def fire
-        @bullets.push(Bullet.new(@window, @x))
+        @bullets.push(Bullet.new(@window, barrel_position))
         @last_shot = Gosu.milliseconds
+    end
+
+    def clear_bullet(bullet)
+        @bullets.delete(bullet)
     end
 
     private
@@ -49,6 +58,10 @@ class Player
         end
     end
 
+    def barrel_position
+        [@x + 17, ship_top]
+    end
+
     def can_fire?
         time_since_last_shot >= SHOT_DELAY
     end
@@ -58,6 +71,10 @@ class Player
     end
 
     def start_position
-        [(@window.width / 2) - (@image.width / 2), 374]
+        [(@window.width / 2) - (@image.width / 2), ship_top]
+    end
+
+    def ship_top
+        PlayState::FLOOR - @image.height
     end
 end

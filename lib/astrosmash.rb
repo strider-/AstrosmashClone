@@ -39,4 +39,8 @@ class Astrosmash < Gosu::Window
     def load_image(name)
         @images[name] ||= Gosu::Image.new(self, File.join(MEDIA_PATH, name))
     end
+
+    def load_tiles(name, tile_width, tile_height)
+        @images[name] ||= Gosu::Image::load_tiles(self, File.join(MEDIA_PATH, name), tile_width, tile_height, true)
+    end
 end

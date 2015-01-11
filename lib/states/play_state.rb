@@ -9,12 +9,16 @@ class PlayState < GameState
         @meteor_shower = MeteorShower.new(window)
         @player = Player.new(window)        
         @bg_color = Gosu::Color.rgba(0x55555555)
+        @explosions = []
         @lives = 3
         @score = 0
     end
 
     def update
-        game_objects.each(&:update)
+        game_objects.each(&:update)        
+        @explosions.reject! do |explosion|
+            explosion.done?
+        end
         collision_check
     end
 
@@ -27,12 +31,17 @@ class PlayState < GameState
 
     def collision_check
         meteor_hits.each do |hit|
-            @meteor_shower.clear_meteor hit[:meteor]
-            @player.clear_bullet hit[:bullet]
-            @score += hit[:meteor].value
+            handle_shot_down_meteor hit[:meteor], hit[:bullet]
         end
 
         @score = [@score - @meteor_shower.crashed_meteor_value, 0].max
+    end
+
+    def handle_shot_down_meteor(meteor, bullet)
+        @meteor_shower.clear_meteor meteor
+        @player.clear_bullet bullet
+        @explosions.push(Explosion.new(@window, *meteor.position))
+        @score += meteor.value
     end
 
     def player_was_hit?
@@ -52,6 +61,6 @@ class PlayState < GameState
     end
 
     def game_objects
-        @game_objects ||= [@hud, @player, @meteor_shower]
+        (@game_objects ||= [@hud, @player, @meteor_shower]) + @explosions
     end
 end

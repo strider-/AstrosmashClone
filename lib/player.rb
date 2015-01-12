@@ -63,6 +63,10 @@ class Player
         warp if id == Gosu::KbLeftShift && can_warp?
     end
 
+    def warp_status
+        [time_since_last_warp.to_f / WARP_DELAY.to_f, 1.0].min
+    end
+
     private
 
     def handle_input

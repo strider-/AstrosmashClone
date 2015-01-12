@@ -1,7 +1,7 @@
 # Astrosmash Clone
 A clone of the Intellivision game Astrosmash, written in Ruby 2.1.2 using Gosu as the game engine.
 
-![Screenshot](http://i.imgur.com/dLGLvgD.png "Screenshot")
+![Screenshot](http://i.imgur.com/l50k6ae.png "Screenshot")
 
 Controls
 --------

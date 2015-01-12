@@ -23,7 +23,7 @@ class MeteorShower
 
     def clear_meteor(meteor)
         @meteors.delete(meteor)
-        @meteors.push(*meteor.split) if should_split?(meteor)
+        @meteors.push(*meteor.split) if meteor.should_split?
     end
     
     def crashed_meteor_value
@@ -38,7 +38,7 @@ class MeteorShower
 
     def make_it_rain
         if time_for_more?
-            @meteors.push(Meteor.new(@window))
+            @meteors.push(Meteor.new_random(@window))
             @last_addition = Gosu.milliseconds
         end
     end 
@@ -49,9 +49,5 @@ class MeteorShower
 
     def time_since_last_meteor
        Gosu.milliseconds - @last_addition
-    end
-
-    def should_split?(meteor)
-        meteor.large? && (Gosu.random(0, 100).truncate % 2 == 0)
     end
 end

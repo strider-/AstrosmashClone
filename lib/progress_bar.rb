@@ -6,7 +6,7 @@ class ProgressBar
         @border_rect = Rect.new(x, y, w, h)
         @fill_rect   = Rect.new(x + 2, y + 2, w - 4, h - 4)
         @value = 0.0
-        @color_bg = Gosu::Color.argb(0xFF7A7A7A)
+        @color_bg = Gosu::Color.argb(0xFF444444)
         @color_fg = Gosu::Color.argb(0xFFFFFFFF)
     end
 

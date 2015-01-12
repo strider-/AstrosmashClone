@@ -12,14 +12,16 @@ class Hud
     end
 
     def update
+        @score = @state.score.to_s.rjust(6, '0')
+        @lives = "x#{@state.lives.to_s.rjust(2, '0')}"
         @warp_bar.value = @player.warp_status
         @warp_bar.color_fg = warp_bar_color
     end
     
     def draw
         @window.fill_rect(*bounds, Gosu::Color::BLACK)
-        @font.draw(score, 10, 435, 0, 1.0, 1.0)
-        @font.draw(lives, 580, 435, 0, 1.0, 1.0)
+        @font.draw(@score, 10, 435, 0, 1.0, 1.0)
+        @font.draw(@lives, 580, 435, 0, 1.0, 1.0)
         @window.draw_line(*location, Gosu::Color::GRAY, @window.width, PlayState::FLOOR, Gosu::Color::GRAY)
         @player_icon.draw(555, 436,  0, 0.5, 0.5)
         @warp_bar.draw
@@ -33,14 +35,6 @@ class Hud
 
     def bounds
         @bounds ||= [*location, @window.width, @window.height]
-    end
-
-    def score
-        @state.score.to_s.rjust(6, '0')
-    end
-
-    def lives
-        "x#{@state.lives.to_s.rjust(2, '0')}"
     end
 
     def warp_bar_color

@@ -37,8 +37,10 @@ class Player
     end
 
     def fire
-        @bullets.push(Bullet.new(@window, barrel_position))
-        @last_shot = Gosu.milliseconds
+        if can_fire?
+            @bullets.push(Bullet.new(@window, barrel_position))
+            @last_shot = Gosu.milliseconds
+        end
     end
 
     def clear_bullet(bullet)
@@ -54,13 +56,15 @@ class Player
     end
 
     def warp
-        @x = Gosu.random(0, @right_most).truncate
-        @hit_box.move_to(@x, @hit_box.y)
-        @last_warp = Gosu.milliseconds
+        if can_warp?
+            @x = Gosu.random(0, @right_most).truncate
+            @hit_box.move_to(@x, @hit_box.y)
+            @last_warp = Gosu.milliseconds
+        end
     end
 
     def button_down(id)
-        warp if id == Gosu::KbLeftShift && can_warp?
+        warp if id == Gosu::KbLeftShift
     end
 
     def warp_status
@@ -72,7 +76,7 @@ class Player
     def handle_input
         move_left  if @window.button_down?(Gosu::KbLeft)
         move_right if @window.button_down?(Gosu::KbRight)
-        fire       if @window.button_down?(Gosu::KbSpace) && can_fire?
+        fire       if @window.button_down?(Gosu::KbSpace)
     end
 
     def update_bullets        

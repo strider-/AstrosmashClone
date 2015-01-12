@@ -2,7 +2,7 @@ class DeathState < GameState
     def initialize(window, play_state)
         super window
         @play_state = play_state
-        @bg_color = Gosu::Color.rgba(0xFF555555)
+        @bg_color = Gosu::Color.argb(0x55FF5555)
         @font = Gosu::Font.new(window, 'Courier New', 80)
         @time = Gosu.milliseconds
     end
@@ -17,7 +17,7 @@ class DeathState < GameState
     def draw
         @window.fill_rect(0, 0, @window.width, PlayState::FLOOR, @bg_color)
         @font.draw('THANKS OBAMA', 110, 180, 0, 1.0, 1.0)
-        @play_state.hud.draw
+        @play_state.draw_hud
     end
 
     def done?
@@ -27,6 +27,6 @@ class DeathState < GameState
     private
 
     def resume_state
-        @play_state.lives == 0 ? GameOverState.new(@window, @play_state.score) : @play_state
+        @play_state.lives < 0 ? GameOverState.new(@window, @play_state.peak_score) : @play_state
     end
 end

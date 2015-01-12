@@ -7,6 +7,7 @@ Controls
 --------
 - Arrow Left / Right = Move Left / Right
 - Space = Start Game / Fire
+- Left Shift = Hyperspace (warp)
 - R = Reset Game
 - Esc = Quit
 

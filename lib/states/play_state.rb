@@ -46,8 +46,8 @@ class PlayState < GameState
     private 
 
     def collision_check
-        meteor_hits.each do |hit|
-            handle_shot_down_meteor hit[:meteor], hit[:bullet]
+        meteor_hits.each do |meteor|
+            handle_shot_down_meteor meteor
         end
 
         if player_was_hit? || @meteor_shower.spinner_crashed?
@@ -58,9 +58,8 @@ class PlayState < GameState
         end
     end
 
-    def handle_shot_down_meteor(meteor, bullet)
+    def handle_shot_down_meteor(meteor)
         @meteor_shower.clear_meteor meteor
-        @player.clear_bullet bullet
         @explosions.push(Explosion.new(@window, *meteor.position))
         increment_score meteor.value
     end
@@ -72,13 +71,11 @@ class PlayState < GameState
     end
 
     def meteor_hits
-        hits = []
-        @meteor_shower.meteors.each do |meteor|
-            @player.bullets.each do |bullet|
-                hits.push({ meteor: meteor, bullet: bullet }) if meteor.hit_box.collides_with?(bullet.hurt_box)
+        @meteor_shower.meteors.select do |meteor|
+            @player.bullets.any? do |bullet| 
+                meteor.hit_box.collides_with?(bullet.hurt_box)
             end
         end
-        hits        
     end
 
     def increment_score(value)

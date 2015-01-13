@@ -2,14 +2,14 @@ class Player
     attr_reader :bullets, :hit_box
 
     SHOT_DELAY = 250
-    MOVE_STEP  = 5
+    MOVE_STEP  = 6.5
     WARP_DELAY = 5000
 
     def initialize(window)
         @window = window
         @image = window.load_image('player.png')
         @x, @y = start_position
-        @hit_box = Rect.new(@x, @y, @image.width, @image.height)
+        @hit_box = Rect.new(@x + 5, @y + 5, @image.width - 10, @image.height - 5)
         @right_most = @window.width - @image.width
         @bullets = []
         @last_shot = 0
@@ -21,19 +21,20 @@ class Player
         update_bullets
     end 
 
-    def draw
+    def draw       
         @image.draw(@x, @y, 0)
         @bullets.each(&:draw)
+        draw_hit_box if SHOW_HITBOX 
     end
 
     def move_left
         @x = [@x - MOVE_STEP, 0].max
-        @hit_box.move_to(@x, @hit_box.y)
+        adjust_hit_box
     end
 
     def move_right
         @x = [@x + MOVE_STEP, @right_most].min
-        @hit_box.move_to(@x, @hit_box.y)
+        adjust_hit_box
     end
 
     def fire
@@ -43,13 +44,9 @@ class Player
         end
     end
 
-    def clear_bullet(bullet)
-        @bullets.delete(bullet)
-    end
-
     def reset
         @x, @y = start_position
-        @hit_box.move_to(@x, @y)
+        adjust_hit_box
         @bullets.clear
         @last_shot = 0
         @last_warp = -WARP_DELAY
@@ -58,7 +55,7 @@ class Player
     def warp
         if can_warp?
             @x = Gosu.random(0, @right_most).truncate
-            @hit_box.move_to(@x, @hit_box.y)
+            adjust_hit_box
             @last_warp = Gosu.milliseconds
         end
     end
@@ -77,6 +74,10 @@ class Player
         move_left  if @window.button_down?(Gosu::KbLeft)
         move_right if @window.button_down?(Gosu::KbRight)
         fire       if @window.button_down?(Gosu::KbSpace)
+    end
+
+    def adjust_hit_box
+        @hit_box.move_to(@x + 5, @hit_box.y)
     end
 
     def update_bullets        
@@ -112,5 +113,9 @@ class Player
 
     def ship_top
         PlayState::FLOOR - @image.height
+    end
+
+    def draw_hit_box
+        @window.fill_rect(*@hit_box.bounds, Gosu::Color.argb(0x7A7A7AFF))
     end
 end

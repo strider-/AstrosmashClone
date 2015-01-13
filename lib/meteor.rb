@@ -35,6 +35,7 @@ class Meteor
 
     def draw
         @image.draw(@x, @y, -1, 1, 1, @color)
+        draw_hit_box if SHOW_HITBOX        
     end
 
     def out_of_bounds?
@@ -64,6 +65,10 @@ class Meteor
     end
     
     private
+
+    def draw_hit_box
+        @window.fill_rect(*@hit_box.bounds, Gosu::Color.argb(0x7AFF7A7A))
+    end
 
     def start_position
         [Gosu.random(0, (@window.width - @image.width)), -@image.height]

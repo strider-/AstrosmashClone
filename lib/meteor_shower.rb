@@ -2,7 +2,8 @@ class MeteorShower
     attr_reader :meteors
 
     TYPES = [
-        LargeMeteor, SmallMeteor, Spinner
+        LargeMeteor,  SmallMeteor, 
+        LargeSpinner, SmallSpinner
     ]
 
     def initialize(window)

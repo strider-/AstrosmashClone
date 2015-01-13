@@ -4,7 +4,8 @@ class Explosion
         @tiles = window.load_tiles('explode.png', 28, 28)
         @img = @tiles[0]
         @done = false
-        @play_count = -1
+        @play_count = 0
+        @start_time = Gosu::milliseconds
     end
 
     def update
@@ -26,6 +27,6 @@ class Explosion
     private
 
     def current_index
-        (Gosu::milliseconds / 50) % @tiles.size
+        ((@start_time - Gosu::milliseconds) / 50) % @tiles.size
     end
 end

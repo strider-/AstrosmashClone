@@ -1,8 +1,9 @@
 #!/usr/bin/env ruby
 require 'gosu'
 
-BASE_PATH  = File.dirname(File.absolute_path(__FILE__))
-MEDIA_PATH = File.join(BASE_PATH, 'media')
+BASE_PATH   = File.dirname(File.absolute_path(__FILE__))
+MEDIA_PATH  = File.join(BASE_PATH, 'media')
+SHOW_HITBOX = false
 
 preload = %w(
     lib/states/game_state.rb
@@ -10,6 +11,8 @@ preload = %w(
     lib/large_meteor.rb
     lib/small_meteor.rb
     lib/spinner.rb
+    lib/large_spinner.rb
+    lib/small_spinner.rb    
 )
 preload.each do |file|
     require "#{BASE_PATH}/#{file}"

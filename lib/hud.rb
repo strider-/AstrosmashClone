@@ -14,8 +14,8 @@ class Hud
     end
 
     def update
-        @score = @state.score.to_s.rjust(6, '0')
-        @lives = "x#{@state.lives.to_s.rjust(2, '0')}"
+        @score = [@state.score, 999999].min.to_s.rjust(6, '0')
+        @lives = "x#{[@state.lives, 99].min.to_s.rjust(2, '0')}"
         @multiplier = "#{@state.multiplier}x"
         @warp_bar.value = @player.warp_status
         @warp_bar.color_fg = warp_bar_color

@@ -1,6 +1,8 @@
 class Meteor
     attr_reader :step_y, :color, :hit_box
 
+    TYPES  = ['large', 'small', 'spinner', 'ufo']
+
     COLORS = [
         Gosu::Color.argb(0xFF574D95),
         Gosu::Color.argb(0xFFAC4D83),
@@ -11,23 +13,13 @@ class Meteor
         Gosu::Color.argb(0xFF426E89)
     ]
 
-    class << self
-        def create_small(window, large_meteor, step_x)
-            SmallMeteor.new(window, large_meteor, step_x)
-        end
-
-        def new_random(window)
-            types[Gosu.random(0, types.count).truncate].new(window)
-        end
-
-        def types
-            @@meteor_types ||= [LargeMeteor, SmallMeteor]
-        end
+    def self.create_small(window, large_meteor, step_x)
+        SmallMeteor.new(window, large_meteor, step_x)
     end
 
-    def initialize(window)
+    def initialize(window, image_name = nil)
         @window  = window
-        @image   = window.load_image("asteroid_#{size}.png")
+        @image   = window.load_image(image_name || "asteroid_#{size}.png")
         @x, @y   = start_position
         @hit_box = Rect.new(@x, @y, @image.width, @image.height)
         @step_y  = Gosu.random(1.0, 5.0)
@@ -57,14 +49,6 @@ class Meteor
 
     def value; end
 
-    def large?
-        size == 'large'
-    end
-
-    def small?
-        size == 'small'
-    end
-
     def position
         [@x, @y]
     end
@@ -73,6 +57,12 @@ class Meteor
         large? && (Gosu.random(0, 100).truncate % 2 == 0)
     end    
 
+    TYPES.each do |type|
+        define_method("#{type}?") do
+            size == type
+        end
+    end
+    
     private
 
     def start_position

@@ -1,15 +1,20 @@
 class MeteorShower
     attr_reader :meteors
 
+    TYPES = [
+        LargeMeteor, SmallMeteor, Spinner
+    ]
+
     def initialize(window)
         @window = window
         @meteors = []
-        @interval = 1000
+        @interval = 500
         @last_addition = 0
     end
 
     def update
         @meteors.each(&:update)
+        @spinner_crashed = @meteors.any? { |m| m.crashed? && m.spinner? }
         @crashed_meteor_values = @meteors.select { |m| m.crashed? }.map(&:value)
         @meteors.reject! do |meteor|
             meteor.crashed? || meteor.out_of_bounds?
@@ -34,14 +39,22 @@ class MeteorShower
         @meteors.clear
     end
 
+    def spinner_crashed?
+        @spinner_crashed
+    end
+
     private
 
     def make_it_rain
         if time_for_more?
-            @meteors.push(Meteor.new_random(@window))
+            @meteors.push random_meteor
             @last_addition = Gosu.milliseconds
         end
-    end 
+    end
+
+    def random_meteor
+        TYPES[Gosu.random(0, TYPES.count).truncate].new(@window)
+    end  
 
     def time_for_more?
         time_since_last_meteor > @interval

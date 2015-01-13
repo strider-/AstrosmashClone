@@ -50,12 +50,12 @@ class PlayState < GameState
             handle_shot_down_meteor hit[:meteor], hit[:bullet]
         end
 
-        if player_was_hit?
+        if player_was_hit? || @meteor_shower.spinner_crashed?
             @lives -= 1
             @window.state = DeathState.new(@window, self)
+        else
+            decrement_score(@meteor_shower.crashed_meteor_value)
         end
-
-        decrement_score(@meteor_shower.crashed_meteor_value)
     end
 
     def handle_shot_down_meteor(meteor, bullet)
@@ -84,14 +84,17 @@ class PlayState < GameState
     def increment_score(value)
         @score += (value * @multiplier)
         if @peak_score < @score
-            to_next_life = @peak_score % EXTRA_LIFE_INTERVAL
+            @lives += 1 if should_award_extra_life?
             @peak_score = @score
-            @lives += 1 if to_next_life > @peak_score % EXTRA_LIFE_INTERVAL
         end
     end
 
     def decrement_score(value)
         @score = [@score - (value * @multiplier), 0].max
+    end
+
+    def should_award_extra_life?
+        (@peak_score % EXTRA_LIFE_INTERVAL) > (@score % EXTRA_LIFE_INTERVAL)
     end
 
     def game_objects

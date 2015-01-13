@@ -1,8 +1,9 @@
 class PlayState < GameState
     attr_reader :lives, :score, :peak_score, :multiplier
-
-    FLOOR = 420 # smoke games every day
+    
+    FLOOR               = 420 # smoke games every day
     EXTRA_LIFE_INTERVAL = 1000
+    UFO_BREAKPOINT      = 20000
 
     def initialize(window)
         super window
@@ -22,6 +23,7 @@ class PlayState < GameState
             explosion.done?
         end
         collision_check
+        set_ufo_status
     end
 
     def draw
@@ -47,7 +49,7 @@ class PlayState < GameState
 
     def collision_check
         meteor_hits.each do |meteor|
-            handle_shot_down_meteor meteor
+            handle_shot_down meteor
         end
 
         if player_was_hit? || @meteor_shower.spinner_crashed?
@@ -58,7 +60,7 @@ class PlayState < GameState
         end
     end
 
-    def handle_shot_down_meteor(meteor)
+    def handle_shot_down(meteor)
         @meteor_shower.clear_meteor meteor
         @explosions.push(Explosion.new(@window, *meteor.position))
         increment_score meteor.value
@@ -92,6 +94,10 @@ class PlayState < GameState
 
     def should_award_extra_life?
         (@peak_score % EXTRA_LIFE_INTERVAL) > (@score % EXTRA_LIFE_INTERVAL)
+    end
+
+    def set_ufo_status
+       @score >= UFO_BREAKPOINT ? @meteor_shower.activate_ufo! : @meteor_shower.deactivate_ufo
     end
 
     def game_objects

@@ -44,6 +44,14 @@ class MeteorShower
         @spinner_crashed
     end
 
+    def activate_ufo!
+        TYPES.push(UFO) unless TYPES.include?(UFO)
+    end
+
+    def deactivate_ufo
+        TYPES.delete(UFO) if TYPES.include?(UFO)
+    end
+
     private
 
     def make_it_rain

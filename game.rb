@@ -12,7 +12,7 @@ preload = %w(
     lib/small_meteor.rb
     lib/spinner.rb
     lib/large_spinner.rb
-    lib/small_spinner.rb    
+    lib/small_spinner.rb
 )
 preload.each do |file|
     require "#{BASE_PATH}/#{file}"

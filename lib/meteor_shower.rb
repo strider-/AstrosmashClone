@@ -62,7 +62,7 @@ class MeteorShower
     private
 
     def interval
-        1100 - (difficulty * 100)
+        1100 - (difficulty * 115)
     end
 
     def random_speed
@@ -81,7 +81,9 @@ class MeteorShower
         running_weight = 0
         n = rand * @total_type_weight
         TYPES.each do |weight, type|
-            return type.new(window: @window, speed: random_speed) if n > running_weight && n <= running_weight + weight
+            if n > running_weight && n <= running_weight + weight
+                return type.new(window: @window, speed: random_speed)
+            end
             running_weight += weight
         end
     end  

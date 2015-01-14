@@ -1,4 +1,6 @@
 class UFO < Meteor
+    include Collidable
+
     def initialize(window)
         
     end

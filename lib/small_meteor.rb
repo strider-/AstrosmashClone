@@ -14,11 +14,10 @@ class SmallMeteor < Meteor
 
     private
 
-    def inherit_from_parent(parent, step_x)
-        @x, @y   = parent.position        
+    def inherit_from_parent(parent, step_x)   
+        self.x, self.y = parent.position     
         @step_y  = parent.step_y
         @step_x  = step_x
         @color   = parent.color
-        @hit_box.move_to(@x, @y)
     end
 end

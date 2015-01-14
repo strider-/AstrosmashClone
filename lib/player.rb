@@ -3,12 +3,12 @@ class Player
 
     SHOT_DELAY = 250
     MOVE_STEP  = 6.5
-    WARP_DELAY = 5000
+    WARP_DELAY = 3000
 
     def initialize(window)
         super(window, 'player.png')
-        set_hit_box(@x + 5, @y + 5, @image.width - 10, @image.height - 5)
-        @right_most = @window.width - @image.width
+        set_hit_box(x + 5, y + 5, image.width - 10, image.height - 5)
+        @right_most = window.width - image.width
         @bullets = []
         @last_shot = 0
         @last_warp = -WARP_DELAY
@@ -20,22 +20,22 @@ class Player
     end
 
     def draw
-        @image.draw(@x, @y, 0)
+        image.draw(*position, 0)
         @bullets.each(&:draw)
         draw_hit_box
     end
 
     def move_left
-        self.x = [@x - MOVE_STEP, 0].max
+        self.x = [self.x - MOVE_STEP, 0].max
     end
 
     def move_right
-        self.x = [@x + MOVE_STEP, @right_most].min
+        self.x = [self.x + MOVE_STEP, @right_most].min
     end
 
     def fire
         if can_fire?
-            @bullets.push(Bullet.new(@window, barrel_position))
+            @bullets.push(Bullet.new(window, barrel_position))
             @last_shot = Gosu.milliseconds
         end
     end
@@ -75,13 +75,13 @@ class Player
     private
 
     def handle_input
-        move_left  if @window.button_down?(Gosu::KbLeft)
-        move_right if @window.button_down?(Gosu::KbRight)
-        fire       if @window.button_down?(Gosu::KbSpace)
+        move_left  if button_down?(Gosu::KbLeft)
+        move_right if button_down?(Gosu::KbRight)
+        fire       if button_down?(Gosu::KbSpace)
     end
 
     def move_hit_box(x, y)
-        @hit_box.move_to(x + 5, @hit_box.y)
+        hit_box.move_to(x + 5, hit_box.y)
     end
 
     def update_bullets
@@ -92,7 +92,7 @@ class Player
     end
 
     def barrel_position
-        [@x + 17, ship_top]
+        [x + 17, ship_top]
     end
 
     def can_fire?
@@ -112,10 +112,10 @@ class Player
     end
 
     def start_position
-        [(@window.width / 2) - (@image.width / 2), ship_top]
+        [(window.width / 2) - (image.width / 2), ship_top]
     end
 
     def ship_top
-        PlayState::FLOOR - @image.height
+        PlayState::FLOOR - image.height
     end
 end

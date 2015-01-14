@@ -31,16 +31,16 @@ class Meteor
     end
 
     def draw
-        @image.draw(@x, @y, -1, 1, 1, @color)
+        image.draw(x, y, -1, 1, 1, @color)
         draw_hit_box
     end
 
     def out_of_bounds?
-        @x <= -@image.width || @x >= @window.width
+        x <= -image.width || x >= window.width
     end
 
     def crashed?
-        @y >= PlayState::FLOOR
+        y >= PlayState::FLOOR
     end
 
     def size;  end
@@ -60,7 +60,7 @@ class Meteor
     private
 
     def start_position
-        [Gosu.random(0, (@window.width - @image.width)), -@image.height]
+        [Gosu.random(0, (window.width - image.width)), -image.height]
     end
 
     def random_color

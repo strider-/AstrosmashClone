@@ -16,7 +16,7 @@ class Spinner < Meteor
     end
 
     def draw
-        @image.draw_rot(*position, -1, @angle,
+        image.draw_rot(*position, -1, @angle,
                         ROTATE_ORIGIN, ROTATE_ORIGIN,
                         @size_factor, @size_factor, Gosu::Color::WHITE)
         draw_hit_box
@@ -30,10 +30,10 @@ class Spinner < Meteor
 
     def adjust_for_rotating_hit_box
         set_hit_box(
-            @x - (@image.width * ROTATE_ORIGIN * @size_factor),
-            @y - (@image.height * ROTATE_ORIGIN * @size_factor),
-            @image.width * @size_factor,
-            @image.height * @size_factor
+            self.x - (image.width * ROTATE_ORIGIN * @size_factor),
+            self.y - (image.height * ROTATE_ORIGIN * @size_factor),
+            image.width * @size_factor,
+            image.height * @size_factor
         )
     end
 end

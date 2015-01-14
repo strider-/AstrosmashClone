@@ -1,5 +1,5 @@
 module Collidable
-    attr_reader :hit_box
+    attr_reader :hit_box, :x, :y, :image, :window
 
     def initialize(window, image_name)
         @window = window
@@ -49,6 +49,10 @@ module Collidable
     end
 
     private
+
+    def button_down?(id)
+        @window.button_down?(id)
+    end
 
     def load_image(name)
         @image = @window.load_image(name)

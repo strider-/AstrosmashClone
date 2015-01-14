@@ -1,8 +1,7 @@
 class UFO < Meteor
-    include Collidable
 
     def initialize(window)
-        
+        super(window, 'asteroid_large.png')
     end
 
     def update
@@ -11,5 +10,13 @@ class UFO < Meteor
 
     def draw
 
+    end
+
+    def size
+        'ufo'
+    end
+
+    def value
+        100
     end
 end

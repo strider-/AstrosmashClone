@@ -13,7 +13,7 @@ class PlayState < GameState
         @bg_color = Gosu::Color.argb(0x55555555)
         @explosions = []
         @lives = 2
-        @score, @peak_score = 0, 0
+        @score, @peak_score = 19990, 19990
     end
 
     def update

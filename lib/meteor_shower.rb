@@ -1,10 +1,14 @@
 class MeteorShower
     attr_reader :meteors
 
-    TYPES = [
-        LargeMeteor,  SmallMeteor, 
-        LargeSpinner, SmallSpinner
-    ]
+    TYPES = {
+        45 => LargeMeteor,  
+        50 => SmallMeteor, 
+        15 => LargeSpinner, 
+        10 => SmallSpinner
+    }
+
+    UFO_TYPE = { 5 => UFO }
 
     def initialize(window)
         @window = window
@@ -45,11 +49,13 @@ class MeteorShower
     end
 
     def activate_ufo!
-        TYPES.push(UFO) unless TYPES.include?(UFO)
+        TYPES.merge!(UFO_TYPE) unless TYPES.include?(UFO_TYPE.keys[0])
+        @total_type_weight = nil
     end
 
     def deactivate_ufo
-        TYPES.delete(UFO) if TYPES.include?(UFO)
+        TYPES.delete(UFO_TYPE.keys[0]) if TYPES.include?(UFO_TYPE.keys[0])
+        @total_type_weight = nil
     end
 
     private
@@ -62,7 +68,14 @@ class MeteorShower
     end
 
     def random_meteor
-        TYPES[Gosu.random(0, TYPES.count).truncate].new(@window)
+        @total_type_weight ||= TYPES.inject(0) { |sum, (weight, v)| sum + weight }
+        running_weight = 0
+        n = rand * @total_type_weight
+        TYPES.each do |weight, type|
+            return type.new(@window) if n > running_weight && n  <= running_weight + weight
+            running_weight += weight
+        end
+        # TYPES[Gosu.random(0, TYPES.count).truncate].new(@window)
     end  
 
     def time_for_more?

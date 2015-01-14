@@ -5,7 +5,7 @@ class Bullet
 
     def initialize(window:, start_position:)
         super(window: window, image_name: 'bullet.png')
-        self.x, self.y = start_position
+        set_position *start_position
     end
 
     def update
@@ -13,10 +13,10 @@ class Bullet
     end
 
     def draw
-        @image.draw(@x, @y, 0)
+        image.draw(x, y, 0)
     end
 
     def out_of_bounds?
-        @y < -@image.height
+        y < -image.height
     end
 end

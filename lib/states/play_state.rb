@@ -9,7 +9,7 @@ class PlayState < GameState
         super window
         @player = Player.new(window)
         @hud = Hud.new(window, self, @player)
-        @meteor_shower = MeteorShower.new(window)        
+        @meteor_shower = MeteorShower.new(window)
         @explosions = []
         @lives = 2
         @score, @peak_score = 0, 0
@@ -24,7 +24,7 @@ class PlayState < GameState
     end
 
     def draw
-        @window.fill_rect(0, 0, @window.width, FLOOR, bg_color)
+        window.fill_rect(0, 0, window.width, FLOOR, bg_color)
         game_objects.each(&:draw)
     end
 
@@ -57,7 +57,7 @@ class PlayState < GameState
 
         if player_was_hit? || @meteor_shower.spinner_crashed?
             @lives -= 1
-            @window.state = DeathState.new(@window, self)
+            window.state = DeathState.new(window, self)
         else
             decrement_score(@meteor_shower.crashed_meteor_value)
         end
@@ -65,7 +65,7 @@ class PlayState < GameState
 
     def handle_shot_down(meteor)
         @meteor_shower.clear_meteor meteor
-        @explosions.push(Explosion.new(@window, *meteor.position))
+        @explosions.push(Explosion.new(window, *meteor.position))
         increment_score meteor.value
     end
 

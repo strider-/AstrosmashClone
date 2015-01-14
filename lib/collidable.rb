@@ -30,18 +30,23 @@ module Collidable
         end
     end
 
-    def x=(x)
-        @x = x
+    def set_x(new_x)
+        @x = new_x
         move_hit_box(@x, @y)
     end
 
-    def y=(y)
-        @y = y
+    def set_y(new_y)
+        @y = new_y
         move_hit_box(@x, @y)
     end
 
     def position
         [@x, @y]
+    end
+
+    def set_position(new_x, new_y)
+        @x, @y = new_x, new_y
+        move_hit_box(@x, @y)
     end
 
     def hit_box_color
@@ -64,8 +69,8 @@ module Collidable
         [0, 0]
     end
 
-    def move_hit_box(x, y)
-        @hit_box.move_to(@x, @y)
+    def move_hit_box(new_x, new_y)
+        @hit_box.move_to(new_x, new_y)
     end
 
     def draw_hit_box

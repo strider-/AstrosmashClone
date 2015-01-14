@@ -10,12 +10,12 @@ class SmallMeteor < Meteor
 
     def value
         20
-    end    
+    end
 
     private
 
-    def inherit_from_parent(parent, step_x)   
-        self.x, self.y = parent.position     
+    def inherit_from_parent(parent, step_x)
+        set_position *parent.position
         @step_y  = parent.step_y
         @step_x  = step_x
         @color   = parent.color

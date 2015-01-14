@@ -26,11 +26,11 @@ class Player
     end
 
     def move_left
-        self.x = [self.x - MOVE_STEP, 0].max
+        set_x [self.x - MOVE_STEP, 0].max
     end
 
     def move_right
-        self.x = [self.x + MOVE_STEP, @right_most].min
+        set_x [self.x + MOVE_STEP, @right_most].min
     end
 
     def fire
@@ -41,7 +41,7 @@ class Player
     end
 
     def reset
-        self.x, self.y = start_position
+        set_position *start_position
         @bullets.clear
         @last_shot = 0
         @last_warp = -WARP_DELAY
@@ -49,7 +49,7 @@ class Player
 
     def warp
         if can_warp?
-            self.x = Gosu.random(0, @right_most).truncate
+            set_x Gosu.random(0, @right_most).truncate
             @last_warp = Gosu.milliseconds
         end
     end

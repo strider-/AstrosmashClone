@@ -10,14 +10,14 @@ class SplashState < GameState
         @flash_interval = 1000
         @ready = false
         @start_time = 0
-    end    
+    end
 
     def update
         @counter = (Gosu.milliseconds / @flash_interval) % 2
         @stars.update
 
         unless about_to_play?
-            get_ready_to_play if @window.button_down?(Gosu::KbSpace)
+            get_ready_to_play if window.button_down?(Gosu::KbSpace)
         end
     end
 
@@ -55,7 +55,7 @@ class SplashState < GameState
 
     def about_to_play?
         if @ready && @start_time + START_DELAY <= Gosu.milliseconds
-            @window.state = PlayState.new(@window)
+            window.state = PlayState.new(window)
             clean_up
         end
 

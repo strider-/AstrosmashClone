@@ -14,7 +14,6 @@ class MeteorShower
     def initialize(window)
         @window = window
         @meteors = []
-        @interval = 1000
         @last_addition = 0
         @difficulty = 1
     end
@@ -62,6 +61,14 @@ class MeteorShower
 
     private
 
+    def interval
+        1100 - (difficulty * 100)
+    end
+
+    def random_speed
+        Gosu.random(1.0, difficulty.to_f)
+    end
+
     def make_it_rain
         if time_for_more?
             @meteors.push random_meteor
@@ -74,14 +81,13 @@ class MeteorShower
         running_weight = 0
         n = rand * @total_type_weight
         TYPES.each do |weight, type|
-            return type.new(window: @window) if n > running_weight && n  <= running_weight + weight
+            return type.new(window: @window, speed: random_speed) if n > running_weight && n <= running_weight + weight
             running_weight += weight
         end
-        # TYPES[Gosu.random(0, TYPES.count).truncate].new(@window)
     end  
 
     def time_for_more?
-        time_since_last_meteor > @interval
+        time_since_last_meteor > interval
     end
 
     def time_since_last_meteor

@@ -1,18 +1,15 @@
 class Bullet
-    attr_reader :hurt_box
+    include Collidable
 
     MOVE_STEP = 5
 
     def initialize(window, start_position)
-        @window = window
-        @image = window.load_image('bullet.png')
-        @x, @y = start_position
-        @hurt_box = Rect.new(@x, @y, @image.width, @image.height)
+        super(window, 'bullet.png')
+        self.x, self.y = start_position
     end
 
     def update
-        @y -= MOVE_STEP
-        @hurt_box.offset(0, -MOVE_STEP)
+        offset(0, -MOVE_STEP)
     end
 
     def draw

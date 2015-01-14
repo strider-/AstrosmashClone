@@ -3,10 +3,11 @@ require 'gosu'
 
 BASE_PATH   = File.dirname(File.absolute_path(__FILE__))
 MEDIA_PATH  = File.join(BASE_PATH, 'media')
-SHOW_HITBOX = false
+SHOW_HITBOX = true
 
 preload = %w(
     lib/states/game_state.rb
+    lib/collidable.rb
     lib/meteor.rb
     lib/large_meteor.rb
     lib/small_meteor.rb

@@ -1,15 +1,13 @@
 class Player
-    attr_reader :bullets, :hit_box
+    include Collidable
 
     SHOT_DELAY = 250
     MOVE_STEP  = 6.5
     WARP_DELAY = 5000
 
     def initialize(window)
-        @window = window
-        @image = window.load_image('player.png')
-        @x, @y = start_position
-        @hit_box = Rect.new(@x + 5, @y + 5, @image.width - 10, @image.height - 5)
+        super(window, 'player.png')
+        set_hit_box(@x + 5, @y + 5, @image.width - 10, @image.height - 5)
         @right_most = @window.width - @image.width
         @bullets = []
         @last_shot = 0
@@ -19,22 +17,20 @@ class Player
     def update
         handle_input
         update_bullets
-    end 
+    end
 
-    def draw       
+    def draw
         @image.draw(@x, @y, 0)
         @bullets.each(&:draw)
-        draw_hit_box if SHOW_HITBOX 
+        draw_hit_box
     end
 
     def move_left
-        @x = [@x - MOVE_STEP, 0].max
-        adjust_hit_box
+        self.x = [@x - MOVE_STEP, 0].max
     end
 
     def move_right
-        @x = [@x + MOVE_STEP, @right_most].min
-        adjust_hit_box
+        self.x = [@x + MOVE_STEP, @right_most].min
     end
 
     def fire
@@ -45,8 +41,7 @@ class Player
     end
 
     def reset
-        @x, @y = start_position
-        adjust_hit_box
+        self.x, self.y = start_position
         @bullets.clear
         @last_shot = 0
         @last_warp = -WARP_DELAY
@@ -54,8 +49,7 @@ class Player
 
     def warp
         if can_warp?
-            @x = Gosu.random(0, @right_most).truncate
-            adjust_hit_box
+            self.x = Gosu.random(0, @right_most).truncate
             @last_warp = Gosu.milliseconds
         end
     end
@@ -68,6 +62,16 @@ class Player
         [time_since_last_warp.to_f / WARP_DELAY.to_f, 1.0].min
     end
 
+    def hit_box_color
+        Gosu::Color.argb(0x7A7A7AFF)
+    end
+
+    def shot_down?(meteor)
+        @bullets.any? do |bullet|
+            bullet.collides_with?(meteor)
+        end
+    end
+
     private
 
     def handle_input
@@ -76,11 +80,11 @@ class Player
         fire       if @window.button_down?(Gosu::KbSpace)
     end
 
-    def adjust_hit_box
-        @hit_box.move_to(@x + 5, @hit_box.y)
+    def move_hit_box(x, y)
+        @hit_box.move_to(x + 5, @hit_box.y)
     end
 
-    def update_bullets        
+    def update_bullets
         @bullets.each(&:update)
         @bullets.reject! do |bullet|
             bullet.out_of_bounds?
@@ -113,9 +117,5 @@ class Player
 
     def ship_top
         PlayState::FLOOR - @image.height
-    end
-
-    def draw_hit_box
-        @window.fill_rect(*@hit_box.bounds, Gosu::Color.argb(0x7A7A7AFF))
     end
 end

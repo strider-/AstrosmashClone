@@ -7,21 +7,19 @@ class Spinner < Meteor
         @step_a = Gosu.random(2, 7)
         @angle  = 0
         @size_factor = size_factor
-        @hit_box = Rect.new(@x, @y, @image.width * @size_factor, @image.height * @size_factor)
-        adjust_hit_box_for_rotation
+        adjust_for_rotating_hit_box
     end
 
     def update
-        @y += @step_y
         @angle += @step_a
-        @hit_box.offset(0, @step_y)
+        offset(0, @step_y)
     end
 
     def draw
-        @image.draw_rot(*position, -1, @angle, 
-                        ROTATE_ORIGIN, ROTATE_ORIGIN, 
+        @image.draw_rot(*position, -1, @angle,
+                        ROTATE_ORIGIN, ROTATE_ORIGIN,
                         @size_factor, @size_factor, Gosu::Color::WHITE)
-        draw_hit_box if SHOW_HITBOX
+        draw_hit_box
     end
 
     def size
@@ -30,8 +28,12 @@ class Spinner < Meteor
 
     private
 
-    def adjust_hit_box_for_rotation
-        @hit_box.offset(-(@image.width * ROTATE_ORIGIN * @size_factor), 
-                        -(@image.height * ROTATE_ORIGIN * @size_factor))
+    def adjust_for_rotating_hit_box
+        set_hit_box(
+            @x - (@image.width * ROTATE_ORIGIN * @size_factor),
+            @y - (@image.height * ROTATE_ORIGIN * @size_factor),
+            @image.width * @size_factor,
+            @image.height * @size_factor
+        )
     end
 end

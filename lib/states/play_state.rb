@@ -1,15 +1,15 @@
 class PlayState < GameState
     attr_reader :lives, :score, :peak_score, :multiplier
-    
+
     FLOOR               = 420 # smoke games every day
     EXTRA_LIFE_INTERVAL = 1000
     UFO_BREAKPOINT      = 20000
 
     def initialize(window)
         super window
-        @player = Player.new(window)   
+        @player = Player.new(window)
         @hud = Hud.new(window, self, @player)
-        @meteor_shower = MeteorShower.new(window)     
+        @meteor_shower = MeteorShower.new(window)
         @bg_color = Gosu::Color.argb(0x55555555)
         @explosions = []
         @lives = 2
@@ -18,7 +18,7 @@ class PlayState < GameState
 
     def update
         set_multiplier
-        game_objects.each(&:update)        
+        game_objects.each(&:update)
         @explosions.reject! do |explosion|
             explosion.done?
         end
@@ -33,7 +33,7 @@ class PlayState < GameState
 
     def draw_hud
         @hud.draw
-    end    
+    end
 
     def button_down(id)
         @player.button_down(id)
@@ -45,7 +45,7 @@ class PlayState < GameState
         @player.reset
     end
 
-    private 
+    private
 
     def collision_check
         meteor_hits.each do |meteor|
@@ -68,15 +68,13 @@ class PlayState < GameState
 
     def player_was_hit?
         @meteor_shower.meteors.any? do |meteor|
-            @player.hit_box.collides_with? meteor.hit_box
+            @player.collides_with? meteor
         end
     end
 
     def meteor_hits
         @meteor_shower.meteors.select do |meteor|
-            @player.bullets.any? do |bullet| 
-                meteor.hit_box.collides_with?(bullet.hurt_box)
-            end
+            @player.shot_down? meteor
         end
     end
 
@@ -119,5 +117,5 @@ class PlayState < GameState
         else
             6
         end
-    end       
+    end
 end

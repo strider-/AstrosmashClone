@@ -1,5 +1,7 @@
 class Meteor
-    attr_reader :step_y, :color, :hit_box
+    include Collidable
+
+    attr_reader :step_y, :color
 
     TYPES  = ['large', 'small', 'spinner', 'ufo']
 
@@ -18,24 +20,19 @@ class Meteor
     end
 
     def initialize(window, image_name = nil)
-        @window  = window
-        @image   = window.load_image(image_name || "asteroid_#{size}.png")
-        @x, @y   = start_position
-        @hit_box = Rect.new(@x, @y, @image.width, @image.height)
+        super(window, image_name || "asteroid_#{size}.png")
         @step_y  = Gosu.random(1.0, 5.0)
         @step_x  = Gosu.random(-1.5, 1.5)
         @color   = random_color
     end
 
     def update
-        @y += @step_y
-        @x -= @step_x
-        @hit_box.offset(-@step_x, @step_y)
+        offset(-@step_x, @step_y)
     end
 
     def draw
         @image.draw(@x, @y, -1, 1, 1, @color)
-        draw_hit_box if SHOW_HITBOX        
+        draw_hit_box
     end
 
     def out_of_bounds?
@@ -44,31 +41,23 @@ class Meteor
 
     def crashed?
         @y >= PlayState::FLOOR
-    end    
+    end
 
     def size;  end
 
     def value; end
 
-    def position
-        [@x, @y]
-    end
-
     def should_split?
         large? && (Gosu.random(0, 100).truncate % 2 == 0)
-    end    
+    end
 
     TYPES.each do |type|
         define_method("#{type}?") do
             size == type
         end
     end
-    
-    private
 
-    def draw_hit_box
-        @window.fill_rect(*@hit_box.bounds, Gosu::Color.argb(0x7AFF7A7A))
-    end
+    private
 
     def start_position
         [Gosu.random(0, (@window.width - @image.width)), -@image.height]

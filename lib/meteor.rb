@@ -16,12 +16,12 @@ class Meteor
     ]
 
     def self.create_small(window, large_meteor, step_x)
-        SmallMeteor.new(window, large_meteor, step_x)
+        SmallMeteor.new(window: window, parent_meteor: large_meteor, step_x: step_x)
     end
 
-    def initialize(window, image_name = nil)
-        super(window, image_name || "asteroid_#{size}.png")
-        @step_y  = Gosu.random(1.0, 5.0)
+    def initialize(window:, image_name: nil, speed: nil)
+        super(window: window, image_name: image_name || "asteroid_#{size}.png")
+        @step_y  = speed || Gosu.random(1.0, 5.0)
         @step_x  = Gosu.random(-1.5, 1.5)
         @color   = random_color
     end

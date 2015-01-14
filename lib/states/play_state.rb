@@ -16,11 +16,9 @@ class PlayState < GameState
     end
 
     def update
-        set_multiplier
+        set_multiplier_and_difficulty
         game_objects.each(&:update)
-        @explosions.reject! do |explosion|
-            explosion.done?
-        end
+        clear_explosions
         collision_check
         set_ufo_status
     end
@@ -45,6 +43,12 @@ class PlayState < GameState
     end
 
     private
+
+    def clear_explosions
+        @explosions.reject! do |explosion|
+            explosion.done?
+        end
+    end
 
     def collision_check
         meteor_hits.each do |meteor|
@@ -101,7 +105,7 @@ class PlayState < GameState
         (@game_objects ||= [@hud, @player, @meteor_shower]) + @explosions
     end
 
-    def set_multiplier
+    def set_multiplier_and_difficulty
         @multiplier = case @score
         when 0..999
             1
@@ -116,6 +120,7 @@ class PlayState < GameState
         else
             6
         end
+        @meteor_shower.difficulty = @multiplier
     end
 
     def bg_color

@@ -6,7 +6,7 @@ class Player
     WARP_DELAY = 3000
 
     def initialize(window)
-        super(window, 'player.png')
+        super(window: window, image_name: 'player.png')
         set_hit_box(x + 5, y + 5, image.width - 10, image.height - 5)
         @right_most = window.width - image.width
         @bullets = []
@@ -35,7 +35,7 @@ class Player
 
     def fire
         if can_fire?
-            @bullets.push(Bullet.new(window, barrel_position))
+            @bullets.push(Bullet.new(window: window, start_position: barrel_position))
             @last_shot = Gosu.milliseconds
         end
     end

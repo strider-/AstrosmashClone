@@ -3,8 +3,8 @@ class Bullet
 
     MOVE_STEP = 5
 
-    def initialize(window, start_position)
-        super(window, 'bullet.png')
+    def initialize(window:, start_position:)
+        super(window: window, image_name: 'bullet.png')
         self.x, self.y = start_position
     end
 

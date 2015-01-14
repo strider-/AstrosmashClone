@@ -1,6 +1,6 @@
 class SmallMeteor < Meteor
-    def initialize(window, parent_meteor = nil, step_x = nil)
-        super window 
+    def initialize(window:, parent_meteor: nil, step_x: nil, speed: nil)
+        super(window: window, speed: speed)
         inherit_from_parent(parent_meteor, step_x) unless parent_meteor.nil?
     end
 

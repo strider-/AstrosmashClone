@@ -1,7 +1,7 @@
 module Collidable
     attr_reader :hit_box, :x, :y, :image, :window
 
-    def initialize(window, image_name)
+    def initialize(window:, image_name:)
         @window = window
         load_image(image_name)
     end

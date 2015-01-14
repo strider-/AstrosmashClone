@@ -1,6 +1,6 @@
 class SmallSpinner < Spinner
-    def initialize(window)
-        super(window, 0.5)
+    def initialize(window:, speed: nil)
+        super(window: window, size_factor: 0.5, speed: speed)
     end
 
     def value

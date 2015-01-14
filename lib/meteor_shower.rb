@@ -1,5 +1,6 @@
 class MeteorShower
     attr_reader :meteors
+    attr_accessor :difficulty
 
     TYPES = {
         45 => LargeMeteor,  
@@ -13,8 +14,9 @@ class MeteorShower
     def initialize(window)
         @window = window
         @meteors = []
-        @interval = 500
+        @interval = 1000
         @last_addition = 0
+        @difficulty = 1
     end
 
     def update
@@ -72,7 +74,7 @@ class MeteorShower
         running_weight = 0
         n = rand * @total_type_weight
         TYPES.each do |weight, type|
-            return type.new(@window) if n > running_weight && n  <= running_weight + weight
+            return type.new(window: @window) if n > running_weight && n  <= running_weight + weight
             running_weight += weight
         end
         # TYPES[Gosu.random(0, TYPES.count).truncate].new(@window)

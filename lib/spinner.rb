@@ -1,9 +1,9 @@
 class Spinner < Meteor
     ROTATE_ORIGIN = 0.5
 
-    def initialize(window, size_factor)
-        super(window, 'spinner.png')
-        @step_y = Gosu.random(1.0, 3.5)
+    def initialize(window:, size_factor:, speed: nil)
+        super(window: window, image_name: 'spinner.png')
+        @step_y = speed || Gosu.random(1.0, 3.5)
         @step_a = Gosu.random(2, 7)
         @angle  = 0
         @size_factor = size_factor

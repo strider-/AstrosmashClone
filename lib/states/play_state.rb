@@ -9,11 +9,10 @@ class PlayState < GameState
         super window
         @player = Player.new(window)
         @hud = Hud.new(window, self, @player)
-        @meteor_shower = MeteorShower.new(window)
-        @bg_color = Gosu::Color.argb(0x55555555)
+        @meteor_shower = MeteorShower.new(window)        
         @explosions = []
         @lives = 2
-        @score, @peak_score = 19990, 19990
+        @score, @peak_score = 0, 0
     end
 
     def update
@@ -27,7 +26,7 @@ class PlayState < GameState
     end
 
     def draw
-        @window.fill_rect(0, 0, @window.width, FLOOR, @bg_color)
+        @window.fill_rect(0, 0, @window.width, FLOOR, bg_color)
         game_objects.each(&:draw)
     end
 
@@ -116,6 +115,21 @@ class PlayState < GameState
             5
         else
             6
+        end
+    end
+
+    def bg_color
+        case @multiplier
+        when 2
+            Gosu::Color.argb(0x55268BD2)
+        when 3
+            Gosu::Color.argb(0x55A57FBC)
+        when 4
+            Gosu::Color.argb(0x5566AABB)
+        when 5
+            Gosu::Color.argb(0x55D9D9D9)
+        else
+            Gosu::Color.argb(0x55555555)
         end
     end
 end

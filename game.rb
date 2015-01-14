@@ -3,7 +3,7 @@ require 'gosu'
 
 BASE_PATH   = File.dirname(File.absolute_path(__FILE__))
 MEDIA_PATH  = File.join(BASE_PATH, 'media')
-SHOW_HITBOX = true
+SHOW_HITBOX = false
 
 preload = %w(
     lib/states/game_state.rb

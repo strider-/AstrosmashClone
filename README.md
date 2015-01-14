@@ -28,5 +28,5 @@ To-Do
 - Add sounds/audio
 - ~~Implement hyperspace jumping~~
 - Implement more enemy types (UFOs, ~~Spinners~~, Homing Missles)
-- Implement "levels" at scoring breakpoints (score multiplier is working)
+- ~~Implement "levels" at scoring breakpoints~~ (score multiplier is working w/ background color change)
 - ~~Implement additional lives at scoring breakpoints~~

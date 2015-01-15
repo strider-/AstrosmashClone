@@ -1,7 +1,7 @@
 class GameOverState < GameState
     def initialize(window, score)
         @score = score
-        @font = Gosu::Font.new(window, "Arial", 80)
+        @font = window.load_font("Arial", 80)
         @stars = Starfall.new(window)
     end
 

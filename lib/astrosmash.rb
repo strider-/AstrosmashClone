@@ -10,6 +10,7 @@ class Astrosmash < Gosu::Window
         super WIN_WIDTH, WIN_HEIGHT, false
         self.caption = "Astrosmash Clone"
         @images = {}
+        @fonts  = {}
         reset
     end
 
@@ -50,5 +51,9 @@ class Astrosmash < Gosu::Window
 
     def load_tiles(name, tile_width, tile_height)
         @images[name] ||= Gosu::Image::load_tiles(self, File.join(MEDIA_PATH, name), tile_width, tile_height, true)
+    end
+
+    def load_font(name, size)
+        @fonts[[name, size]] ||= Gosu::Font.new(self, name, size)
     end
 end

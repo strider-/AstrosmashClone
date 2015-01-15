@@ -9,6 +9,7 @@ Controls
 - Space = Start Game / Fire
 - Left Shift = Hyperspace (warp)
 - R = Reset Game
+- P = Pause Game
 - Esc = Quit
 
 | Multiplier |   Score Range   |

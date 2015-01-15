@@ -4,8 +4,8 @@ class SplashState < GameState
     def initialize(window)
         super window
         @stars = Starfall.new(window)
-        @title_font = Gosu::Font.new(window, "Arial", 50)
-        @prompt_font = Gosu::Font.new(window, "Arial", 24)
+        @title_font = window.load_font("Arial", 50)
+        @prompt_font = window.load_font("Arial", 24)
         @counter = 0
         @flash_interval = 1000
         @ready = false
@@ -29,12 +29,6 @@ class SplashState < GameState
 
     protected
 
-    def clean_up
-        @stars.destroy
-        @title_font = nil
-        @prompt_font = nil
-    end
-
     def draw_prompt?
         @counter == 0
     end
@@ -56,7 +50,6 @@ class SplashState < GameState
     def about_to_play?
         if @ready && @start_time + START_DELAY <= Gosu.milliseconds
             window.state = PlayState.new(window)
-            clean_up
         end
 
         @ready

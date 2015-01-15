@@ -33,7 +33,11 @@ class PlayState < GameState
     end
 
     def button_down(id)
-        @player.button_down(id)
+        if id == Gosu::KbP
+            pause
+        else
+            @player.button_down(id)
+        end  
     end
 
     def reset
@@ -43,6 +47,10 @@ class PlayState < GameState
     end
 
     private
+
+    def pause
+        window.state = PauseState.new(window, self)
+    end
 
     def clear_explosions
         @explosions.reject! do |explosion|

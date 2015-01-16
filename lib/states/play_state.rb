@@ -13,8 +13,6 @@ class PlayState < GameState
         @explosions = []
         @lives = 2
         @score, @peak_score = 0, 0
-
-        # @meteor_shower.meteors.push UFO.new(window: window)
     end
 
     def update

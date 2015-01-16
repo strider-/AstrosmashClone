@@ -22,9 +22,7 @@ class MeteorShower
         @meteors.each(&:update)
         @spinner_crashed = @meteors.any? { |m| m.crashed? && m.spinner? }
         @crashed_meteor_values = @meteors.select { |m| m.crashed? }.map(&:value)
-        @meteors.reject! do |meteor|
-            meteor.crashed? || meteor.out_of_bounds?
-        end
+        @meteors.reject!(&:out_of_play?)
         make_it_rain
     end
 
@@ -33,7 +31,7 @@ class MeteorShower
     end
 
     def clear_meteor(meteor)
-        @meteors.delete(meteor)
+        meteor.die!
         @meteors.push(*meteor.split) if meteor.should_split?
     end
     

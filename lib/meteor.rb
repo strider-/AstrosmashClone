@@ -24,6 +24,7 @@ class Meteor
         @step_y  = speed || Gosu.random(1.0, 5.0)
         @step_x  = Gosu.random(-1.5, 1.5)
         @color   = random_color
+        @dead = false
     end
 
     def update
@@ -43,12 +44,24 @@ class Meteor
         y >= PlayState::FLOOR
     end
 
+    def out_of_play?
+        out_of_bounds? || crashed? || dead?
+    end
+
     def size;  end
 
     def value; end
 
     def should_split?
         large? && (Gosu.random(0, 100).truncate % 2 == 0)
+    end
+
+    def die!
+        @dead = true
+    end
+
+    def dead?
+        @dead
     end
 
     TYPES.each do |type|

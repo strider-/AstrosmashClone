@@ -1,16 +1,17 @@
 class UFOBullet
     include Collidable
 
+    SPEED = 4.5
+
     def initialize(window:, start:, target:, ufo:)
         super(window: window, image_name: 'ufo_bullet.png')
         @parent = ufo
         set_position *start
-        @target_x, @target_y = target
+        @dir_x, @dir_y = get_direction(target)
     end
 
     def update
-        # TODO: oh my god how do move an object from (x, y) to (x2, y2)
-        # gracefully I am not good at math
+        offset(@dir_x * SPEED, @dir_y * SPEED)
     end
 
     def draw
@@ -23,5 +24,15 @@ class UFOBullet
 
     def was_shot_down!
         @parent.clear_bullet(self)
+    end
+
+    private 
+
+    def get_direction(target)
+        target_x, target_y = target        
+        unit_x = target_x - @x
+        unit_y = target_y - @y
+        len = Math.sqrt((unit_x * unit_x) + (unit_y * unit_y))        
+        [unit_x / len, unit_y / len]
     end
 end

@@ -10,7 +10,7 @@ class UFO < Meteor
         @step_x  = MOVE_STEP
         @color   = Gosu::Color::WHITE
         @bullets = []
-        @last_shot = Gosu.milliseconds
+        @last_shot = Gosu.milliseconds        
     end
 
     def out_of_bounds?
@@ -18,18 +18,24 @@ class UFO < Meteor
     end
 
     def update
-        super
+        unless dead?
+            super            
+            fire if should_fire?
+        end
         @bullets.each(&:update).reject!(&:out_of_bounds?)
-        fire if should_fire?
     end
 
     def draw
-        super
+        super unless dead?
         @bullets.each(&:draw)
     end
 
     def crashed?
         false
+    end
+
+    def out_of_play?
+        (out_of_bounds? || dead?) && @bullets.empty?
     end
 
     def size

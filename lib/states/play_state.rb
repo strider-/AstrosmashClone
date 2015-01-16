@@ -13,7 +13,7 @@ class PlayState < GameState
         @meteor_shower = MeteorShower.new(window)
         @explosions = []
         @lives = 2
-        @score, @peak_score = 199990, 199990
+        @score, @peak_score = 0, 0
     end
 
     def update

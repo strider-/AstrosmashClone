@@ -4,6 +4,7 @@ class PlayState < GameState
     FLOOR               = 420 # smoke games every day
     EXTRA_LIFE_INTERVAL = 1000
     UFO_BREAKPOINT      = 20000
+    EXTRA_DIFFICULTY    = 100000
 
     def initialize(window)
         super window
@@ -12,11 +13,12 @@ class PlayState < GameState
         @meteor_shower = MeteorShower.new(window)
         @explosions = []
         @lives = 2
-        @score, @peak_score = 0, 0
+        @score, @peak_score = 199990, 199990
     end
 
     def update
-        set_multiplier_and_difficulty
+        set_multiplier
+        adjust_difficulty
         game_objects.each(&:update)
         clear_explosions
         collision_check
@@ -138,7 +140,7 @@ class PlayState < GameState
         (@game_objects ||= [@hud, @player, @meteor_shower]) + @explosions
     end
 
-    def set_multiplier_and_difficulty
+    def set_multiplier
         @multiplier = case @score
         when 0..999
             1
@@ -153,7 +155,11 @@ class PlayState < GameState
         else
             6
         end
-        @meteor_shower.difficulty = @multiplier
+    end
+
+    def adjust_difficulty
+        bonus = [(@score / EXTRA_DIFFICULTY) - 1, 0].max
+        @meteor_shower.difficulty = @multiplier + bonus
     end
 
     def bg_color

@@ -9,7 +9,7 @@ class MeteorShower
         10 => SmallSpinner
     }
 
-    UFO_TYPE = { 5 => UFO }
+    UFO_TYPE = { 8 => UFO }
 
     def initialize(window)
         @window = window
@@ -50,13 +50,21 @@ class MeteorShower
     end
 
     def activate_ufo!
-        TYPES.merge!(UFO_TYPE) unless TYPES.include?(UFO_TYPE.keys[0])
-        @total_type_weight = nil
+        unless TYPES.include?(UFO_TYPE.keys[0])
+            TYPES.merge!(UFO_TYPE)
+            @total_type_weight = nil
+        end
     end
 
     def deactivate_ufo
-        TYPES.delete(UFO_TYPE.keys[0]) if TYPES.include?(UFO_TYPE.keys[0])
-        @total_type_weight = nil
+        if TYPES.include?(UFO_TYPE.keys[0])
+            TYPES.delete(UFO_TYPE.keys[0]) 
+            @total_type_weight = nil
+        end
+    end
+
+    def ufo_bullets
+        @meteors.select(&:ufo?).map(&:bullets).flatten
     end
 
     private

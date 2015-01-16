@@ -66,9 +66,9 @@ class Player
         Gosu::Color.argb(0x7A7A7AFF)
     end
 
-    def shot_down?(meteor)
+    def shot_down?(object)
         @bullets.any? do |bullet|
-            bullet.collides_with?(meteor)
+            bullet.collides_with?(object)
         end
     end
 

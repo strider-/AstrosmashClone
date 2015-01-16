@@ -13,6 +13,8 @@ class PlayState < GameState
         @explosions = []
         @lives = 2
         @score, @peak_score = 0, 0
+
+        # @meteor_shower.meteors.push UFO.new(window: window)
     end
 
     def update
@@ -63,6 +65,11 @@ class PlayState < GameState
             handle_shot_down meteor
         end
 
+        ufo_bullet_hits.each do |bullet|
+            bullet.was_shot_down!
+            add_explosion *bullet.position
+        end
+
         if player_was_hit? || @meteor_shower.spinner_crashed?
             @lives -= 1
             window.state = DeathState.new(window, self)
@@ -73,8 +80,12 @@ class PlayState < GameState
 
     def handle_shot_down(meteor)
         @meteor_shower.clear_meteor meteor
-        @explosions.push(Explosion.new(window, *meteor.position))
+        add_explosion *meteor.position
         increment_score meteor.value
+    end
+
+    def add_explosion(x, y)
+        @explosions.push(Explosion.new(window, x, y))
     end
 
     def player_was_hit?
@@ -86,6 +97,12 @@ class PlayState < GameState
     def meteor_hits
         @meteor_shower.meteors.select do |meteor|
             @player.shot_down? meteor
+        end
+    end
+
+    def ufo_bullet_hits
+        @meteor_shower.ufo_bullets.select do |bullet|
+            @player.shot_down? bullet
         end
     end
 

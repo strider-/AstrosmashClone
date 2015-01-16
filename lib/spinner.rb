@@ -3,8 +3,8 @@ class Spinner < Meteor
 
     def initialize(window:, size_factor:, speed: nil)
         super(window: window, image_name: 'spinner.png')
-        @step_y = speed || Gosu.random(1.0, 3.5)
-        @step_a = Gosu.random(2, 7)
+        @step_y = [speed || Gosu.random(1.0, 3.5), 5.5].min
+        @step_a = Gosu.random(2, 8)
         @angle  = 0
         @size_factor = size_factor
         adjust_for_rotating_hit_box

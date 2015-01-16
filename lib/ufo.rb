@@ -4,7 +4,7 @@ class UFO < Meteor
     MOVE_STEP     = 2.5
     FIRE_INTERVAL = 450
 
-    def initialize(window: window, speed: speed)
+    def initialize(window: window, speed: nil)
         super(window: window, image_name: 'ufo.png')
         @step_y  = 0
         @step_x  = MOVE_STEP
@@ -19,9 +19,7 @@ class UFO < Meteor
 
     def update
         super
-        @bullets.each(&:update).reject! do |bullet|
-            bullet.out_of_bounds?
-        end        
+        @bullets.each(&:update).reject!(&:out_of_bounds?)
         fire if should_fire?
     end
 
@@ -40,10 +38,6 @@ class UFO < Meteor
 
     def value
         100
-    end
-
-    def shot_player?(player)
-        false
     end
 
     def clear_bullet(bullet)

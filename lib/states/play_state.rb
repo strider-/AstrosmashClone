@@ -89,9 +89,19 @@ class PlayState < GameState
     end
 
     def player_was_hit?
+        meteor_struck_player? || ufo_bullet_struck_player?
+    end
+
+    def meteor_struck_player?
         @meteor_shower.meteors.any? do |meteor|
             @player.collides_with? meteor
-        end
+        end 
+    end
+
+    def ufo_bullet_struck_player?
+        @meteor_shower.ufo_bullets.any? do |bullet|
+            @player.collides_with? bullet
+        end        
     end
 
     def meteor_hits

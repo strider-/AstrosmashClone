@@ -63,8 +63,12 @@ class MeteorShower
         end
     end
 
+    def ufos
+        @meteors.select(&:ufo?)
+    end
+
     def ufo_bullets
-        @meteors.select(&:ufo?).map(&:bullets).flatten
+        ufos.map(&:bullets).flatten
     end
 
     private
@@ -90,7 +94,11 @@ class MeteorShower
         n = rand * @total_type_weight
         TYPES.each do |weight, type|
             if n > running_weight && n <= running_weight + weight
-                return type.new(window: @window, speed: random_speed)
+                if type == UFO && ufos.any?
+                    return random_meteor
+                else
+                    return type.new(window: @window, speed: random_speed)
+                end
             end
             running_weight += weight
         end

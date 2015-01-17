@@ -2,7 +2,7 @@ class PlayState < GameState
     attr_reader :lives, :score, :peak_score, :multiplier
 
     FLOOR               = 420 # smoke games every day
-    EXTRA_LIFE_INTERVAL = 1000
+    EXTRA_LIFE_INTERVAL = 10000
     UFO_BREAKPOINT      = 20000
     EXTRA_DIFFICULTY    = 100000
 

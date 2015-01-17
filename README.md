@@ -21,7 +21,7 @@ Controls
 |     5x     | 50,000 - 49,999 |
 |     6x     |     100,000+    |
 
-Extra life every 1000 points
+Extra life every 10,000 points. Difficulty increases with the score multiplier, and every 100k starting at 200k points.
 
 To-Do
 --------

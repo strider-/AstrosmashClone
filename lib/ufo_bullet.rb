@@ -1,7 +1,7 @@
 class UFOBullet
     include Collidable
 
-    SPEED = 4.5
+    SPEED = 8.5
 
     def initialize(window:, start:, target:, ufo:)
         super(window: window, image_name: 'ufo_bullet.png')

@@ -15,6 +15,7 @@ preload = %w(
     lib/large_spinner.rb
     lib/small_spinner.rb
     lib/ufo.rb
+    lib/homing_missile.rb
 )
 preload.each do |file|
     require "#{BASE_PATH}/#{file}"

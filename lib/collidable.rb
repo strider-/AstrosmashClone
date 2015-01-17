@@ -53,6 +53,14 @@ module Collidable
         Gosu::Color.argb(0x7AFF7A7A)
     end
 
+    def vector_to_target_position(target)
+        target_x, target_y = target        
+        unit_x = target_x - @x
+        unit_y = target_y - @y
+        len = Math.sqrt((unit_x * unit_x) + (unit_y * unit_y))        
+        [unit_x / len, unit_y / len]
+    end    
+
     private
 
     def button_down?(id)

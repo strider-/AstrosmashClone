@@ -3,7 +3,7 @@ class Meteor
 
     attr_reader :step_y, :color
 
-    TYPES  = ['large', 'small', 'spinner', 'ufo']
+    TYPES  = ['large', 'small', 'spinner', 'ufo', 'missile']
 
     COLORS = [
         Gosu::Color.argb(0xFF574D95),

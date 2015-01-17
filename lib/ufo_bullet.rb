@@ -7,11 +7,11 @@ class UFOBullet
         super(window: window, image_name: 'ufo_bullet.png')
         @parent = ufo
         set_position *start
-        @dir_x, @dir_y = get_direction(target)
+        @vx, @vy = vector_to_target_position(target)
     end
 
     def update
-        offset(@dir_x * SPEED, @dir_y * SPEED)
+        offset(@vx * SPEED, @vy * SPEED)
     end
 
     def draw
@@ -24,15 +24,5 @@ class UFOBullet
 
     def was_shot_down!
         @parent.clear_bullet(self)
-    end
-
-    private 
-
-    def get_direction(target)
-        target_x, target_y = target        
-        unit_x = target_x - @x
-        unit_y = target_y - @y
-        len = Math.sqrt((unit_x * unit_x) + (unit_y * unit_y))        
-        [unit_x / len, unit_y / len]
     end
 end

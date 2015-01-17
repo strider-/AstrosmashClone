@@ -2,6 +2,7 @@ class PlayState < GameState
     attr_reader :lives, :score, :peak_score, :multiplier
 
     FLOOR               = 420 # smoke games every day
+    DEATH_PENALTY       = 100
     EXTRA_LIFE_INTERVAL = 10000
     UFO_BREAKPOINT      = 20000
     EXTRA_DIFFICULTY    = 100000
@@ -48,6 +49,10 @@ class PlayState < GameState
         @player.reset
     end
 
+    def player_position
+        @player.position
+    end
+
     private
 
     def pause
@@ -72,6 +77,7 @@ class PlayState < GameState
 
         if player_was_hit? || @meteor_shower.spinner_crashed?
             @lives -= 1
+            decrement_score(DEATH_PENALTY)
             window.state = DeathState.new(window, self)
         else
             decrement_score(@meteor_shower.crashed_meteor_value)

@@ -41,6 +41,10 @@ class Astrosmash < Gosu::Window
         self.state = SplashState.new(self)
     end
 
+    def player_position
+        @state.player_position if @state.respond_to?(:player_position)
+    end
+
     def fill_rect(x, y, x2, y2, color)
         draw_quad(x, y, color, x2, y, color, x, y2, color, x2, y2, color)
     end

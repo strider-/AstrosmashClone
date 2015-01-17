@@ -6,7 +6,8 @@ class MeteorShower
         45 => LargeMeteor,  
         50 => SmallMeteor, 
         15 => LargeSpinner, 
-        10 => SmallSpinner
+        10 => SmallSpinner,
+         3 => HomingMissile
     }
 
     UFO_TYPE = { 8 => UFO }

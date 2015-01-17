@@ -57,7 +57,7 @@ module Collidable
         target_x, target_y = target        
         unit_x = target_x - @x
         unit_y = target_y - @y
-        len = Math.sqrt((unit_x * unit_x) + (unit_y * unit_y))        
+        len = normalize(unit_x, unit_y)
         [unit_x / len, unit_y / len]
     end    
 
@@ -83,5 +83,9 @@ module Collidable
 
     def draw_hit_box
         @window.fill_rect(*@hit_box.bounds, hit_box_color) if SHOW_HITBOX
+    end
+
+    def normalize(x, y)
+        Math.sqrt((x * x) + (y * y))
     end
 end

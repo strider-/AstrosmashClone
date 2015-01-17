@@ -3,6 +3,12 @@ A clone of the Intellivision game Astrosmash, written in Ruby 2.1.2 using Gosu a
 
 ![Screenshot](http://i.imgur.com/l50k6ae.png "Screenshot")
 
+Instructions
+--------
+- Ensure you have Ruby 2.1.2 and the [Gosu](http://www.libgosu.org/) gem installed.
+- Clone the repo, cd into the directory and make game.rb excutable (`chmod +x ./game.rb`)
+- Execute game.rb!
+
 Controls
 --------
 - Arrow Left / Right = Move Left / Right

@@ -3,7 +3,7 @@ class DeathState < GameState
         super window
         @play_state = play_state
         @bg_color = Gosu::Color.argb(0x55FF5555)
-        @font = window.load_font('Courier New', 80)
+        @font = window.load_font('./media/ARCADE.TTF', 80)
         @time = Gosu.milliseconds
     end
 
@@ -16,7 +16,7 @@ class DeathState < GameState
 
     def draw
         window.fill_rect(0, 0, window.width, PlayState::FLOOR, @bg_color)
-        @font.draw('THANKS OBAMA', 110, 180, 0, 1.0, 1.0)
+        @font.draw('THANKS OBAMA', 65, 180, 0, 1.0, 1.0)
         @play_state.draw_hud
     end
 

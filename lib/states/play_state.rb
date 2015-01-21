@@ -3,7 +3,7 @@ class PlayState < GameState
 
     FLOOR               = 420 # smoke games every day
     DEATH_PENALTY       = 100
-    EXTRA_LIFE_INTERVAL = 10000
+    EXTRA_LIFE_INTERVAL = 5000
     UFO_BREAKPOINT      = 20000
     EXTRA_DIFFICULTY    = 100000
 

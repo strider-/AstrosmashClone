@@ -5,7 +5,7 @@ BASE_PATH   = File.dirname(File.absolute_path(__FILE__))
 MEDIA_PATH  = File.join(BASE_PATH, 'media')
 SHOW_HITBOX = false
 
-preload = %w(
+%w(
     lib/states/game_state.rb
     lib/collidable.rb
     lib/meteor.rb
@@ -16,8 +16,7 @@ preload = %w(
     lib/small_spinner.rb
     lib/ufo.rb
     lib/homing_missile.rb
-)
-preload.each do |file|
+).each do |file|
     require "#{BASE_PATH}/#{file}"
 end
 

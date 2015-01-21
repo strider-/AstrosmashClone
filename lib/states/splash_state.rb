@@ -4,8 +4,8 @@ class SplashState < GameState
     def initialize(window)
         super window
         @stars = Starfall.new(window)
-        @title_font = window.load_font("Arial", 50)
-        @prompt_font = window.load_font("Arial", 24)
+        @title_font = window.load_font("./media/ARCADE.TTF", 75)
+        @prompt_font = window.load_font("./media/ARCADE.TTF", 40)
         @counter = 0
         @flash_interval = 1000
         @ready = false
@@ -22,8 +22,8 @@ class SplashState < GameState
     end
 
     def draw
-        @title_font.draw('Astrosmash Clone', 155, 60, 0, 1.0, 1.0)
-        @prompt_font.draw(prompt, 265, 400, 0, 1.0, 1.0) if draw_prompt?
+        @title_font.draw('Astrosmash Clone', 40, 60, 0, 1.0, 1.0)
+        @prompt_font.draw(prompt, 205, 400, 0, 1.0, 1.0) if draw_prompt?
         @stars.draw
     end
 

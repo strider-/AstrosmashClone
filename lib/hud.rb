@@ -7,8 +7,8 @@ class Hud
         @window = window
         @player = player        
         @state = play_state
-        @warp_bar = ProgressBar.new(@window, 445, 441, 96, 16)
-        @font = window.load_font('Courier New', 40)
+        @warp_bar = ProgressBar.new(@window, 425, 443, 96, 16)
+        @font = window.load_font('./media/ARCADE.TTF', 45)
         @player_icon = window.load_image('player.png')
         @multiplier_color = Gosu::Color.argb(MULTIPLIER_COLOR)
     end
@@ -24,10 +24,10 @@ class Hud
     def draw
         @window.fill_rect(*bounds, Gosu::Color::BLACK)
         @font.draw(@score, 10, 435, 0, 1.0, 1.0)
-        @font.draw(@multiplier, 130, 435, 0, 1.0, 1.0, @multiplier_color)
-        @font.draw(@lives, 580, 435, 0, 1.0, 1.0)
+        @font.draw(@multiplier, 165, 435, 0, 1.0, 1.0, @multiplier_color)
+        @font.draw(@lives, 560, 435, 0, 1.0, 1.0)
         @window.draw_line(*location, Gosu::Color::GRAY, @window.width, PlayState::FLOOR, Gosu::Color::GRAY)
-        @player_icon.draw(555, 436,  0, 0.5, 0.5)
+        @player_icon.draw(535, 438,  0, 0.5, 0.5)
         @warp_bar.draw
     end
 

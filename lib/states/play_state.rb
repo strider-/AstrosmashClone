@@ -76,12 +76,16 @@ class PlayState < GameState
         end
 
         if player_was_hit? || @meteor_shower.spinner_crashed?
-            @lives -= 1
-            decrement_score(DEATH_PENALTY)
-            window.state = DeathState.new(window, self)
+            you_died
         else
             decrement_score(@meteor_shower.crashed_meteor_value)
         end
+    end
+
+    def you_died
+        @lives -= 1
+        decrement_score(DEATH_PENALTY)
+        window.state = DeathState.new(window, self)        
     end
 
     def handle_shot_down(meteor)

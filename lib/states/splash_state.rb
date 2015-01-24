@@ -4,8 +4,8 @@ class SplashState < GameState
     def initialize(window)
         super window
         @stars = Starfall.new(window)
-        @title_font = window.load_font("./media/ARCADE.TTF", 75)
-        @prompt_font = window.load_font("./media/ARCADE.TTF", 40)
+        @title_font = window.load_font("ARCADE.TTF", 75)
+        @prompt_font = window.load_font("ARCADE.TTF", 40)
         @counter = 0
         @flash_interval = 1000
         @ready = false

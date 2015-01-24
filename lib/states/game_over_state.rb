@@ -1,7 +1,7 @@
 class GameOverState < GameState
     def initialize(window, score)
         @score = score
-        @font = window.load_font("./media/ARCADE.TTF", 80)
+        @font = window.load_font("ARCADE.TTF", 80)
         @stars = Starfall.new(window)
     end
 

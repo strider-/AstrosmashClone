@@ -3,7 +3,7 @@ class DeathState < GameState
         super window
         @play_state = play_state
         @bg_color = Gosu::Color.argb(0x55FF5555)
-        @font = window.load_font('./media/ARCADE.TTF', 80)
+        @font = window.load_font('ARCADE.TTF', 80)
         @time = Gosu.milliseconds
     end
 

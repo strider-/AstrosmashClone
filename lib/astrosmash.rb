@@ -58,6 +58,6 @@ class Astrosmash < Gosu::Window
     end
 
     def load_font(name, size)
-        @fonts[[name, size]] ||= Gosu::Font.new(self, name, size)
+        @fonts[[name, size]] ||= Gosu::Font.new(self, File.join(MEDIA_PATH, name), size)
     end
 end

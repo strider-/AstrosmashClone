@@ -8,7 +8,7 @@ class Hud
         @player = player        
         @state = play_state
         @warp_bar = ProgressBar.new(@window, 425, 443, 96, 16)
-        @font = window.load_font('./media/ARCADE.TTF', 45)
+        @font = window.load_font('ARCADE.TTF', 45)
         @player_icon = window.load_image('player.png')
         @multiplier_color = Gosu::Color.argb(MULTIPLIER_COLOR)
     end

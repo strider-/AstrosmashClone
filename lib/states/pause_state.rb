@@ -2,7 +2,7 @@ class PauseState < GameState
     def initialize(window, play_state)
         super(window)
         @play_state = play_state
-        @font = window.load_font('./media/ARCADE.TTF', 80)
+        @font = window.load_font('ARCADE.TTF', 80)
         @start = Gosu.milliseconds
         @flash_interval = 750
     end
